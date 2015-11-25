@@ -679,7 +679,9 @@ public class CLIDriver {
 	private boolean isLong(String input) {
 		try {
 			Long.parseLong(input);
-		} catch (ClassCastException | NumberFormatException ex) {
+		} catch (ClassCastException ex) {
+			return false;
+		} catch ( NumberFormatException nf){
 			return false;
 		}
 		return true;
