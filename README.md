@@ -18,7 +18,7 @@ Run either of the available TSAK commands.
 
 <h5>Note:</h5> 
 <ul>
-<li>New option <code>-limit</code> added which specifies the number of api calls to be consumed for the commands require more than one api call, default <code>-limit 1</code></li>
+<li>New option <code>-limit</code> added which specifies the number of api calls to be consumed for the commands which can consume  more than one api call, default <code>-limit 1</code></li>
 <li>For detail description on available commands refer to: http://openspinoza.org/tsak/commands</li>
 </ul>
 <h3>Commands</h3>
