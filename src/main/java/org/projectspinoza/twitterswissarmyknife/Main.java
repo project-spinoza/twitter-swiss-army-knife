@@ -26,12 +26,10 @@ import com.beust.jcommander.ParameterException;
  */
 public class Main {
 	private static Logger log = LogManager.getRootLogger();
-
-	public static void main(String[] args) throws TwitterException, IOException {
+	private static ConsoleReader consoleReader;
+	public static void main(String[] args) throws IOException {
 		log.info("Initializing TSAK");
-
-		final ConsoleReader reader = new ConsoleReader();
-		String commandLine;
+		
 		/**
 		 * TSAK USAGE
 		 * 
@@ -48,36 +46,21 @@ public class Main {
 		 * ===================================
 		 * 
 		 */
+		consoleReader = new ConsoleReader();
+		TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
 		while (true) {
 			try {
-				commandLine = reader.readLine("tsak>");
-				if (commandLine.trim().equals("")) {
-					continue;
-				} else if (commandLine.trim().equals("exit")) {
-					reader.println("Good Bye....");
-					reader.flush();
-					break;
-				} else {
-					List<String> mList = new ArrayList<String>();
-					Pattern regex = Pattern.compile("[^\\s\"']+|\"[^\"]*\"|'[^']*'");
-					Matcher regexMatcher = regex.matcher(commandLine);
-					TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
-					while (regexMatcher.find()) {
-						mList.add(regexMatcher.group());
-					}
-					String[] cmdArgs = mList.toArray(new String[mList.size()]);
-					tsak.executeCommand(cmdArgs).write();
-				}
+                tsak.executeCommand(getCommandLineArguments()).write();
 			} catch(ParameterException ex){
-				log.error(ex.getMessage());
+			    consoleReader.println(ex.getMessage());
 			}catch(TwitterException ex){
-				log.error(ex.getMessage());
+			    consoleReader.println(ex.getMessage());
 			} catch (IllegalStateException ex) {
-				reader.println(ex.getMessage());
-				reader.flush();
+				consoleReader.println(ex.getMessage());
 			} catch (IOException ex) {
-				reader.println(ex.getMessage());
-				reader.flush();
+				consoleReader.println(ex.getMessage());
+			}finally{
+			    consoleReader.flush();
 			}
 		}
 
@@ -139,6 +122,21 @@ public class Main {
 		 * for more detailed usage study the API. (TwitterSwissArmyKnife)
 		 * 
 		 */
-		log.info("Done!");
+	}
+	public static String[] getCommandLineArguments() throws IOException{
+	    String commandLine = consoleReader.readLine("tsak>");
+        if (commandLine.trim().equals("")) { return null; }
+        if (commandLine.trim().equals("exit")) {
+            consoleReader.println("Good Bye...");
+            consoleReader.flush();
+            System.exit(0);
+        }
+	    List<String> cmdArgs = new ArrayList<String>();
+        Pattern regex = Pattern.compile("[^\\s\"']+|\"[^\"]*\"|'[^']*'");
+        Matcher regexMatcher = regex.matcher(commandLine);
+        while (regexMatcher.find()) {
+            cmdArgs.add(regexMatcher.group());
+        }
+        return cmdArgs.toArray(new String[cmdArgs.size()]);
 	}
 }

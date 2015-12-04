@@ -45,6 +45,15 @@ class BaseCommand{
 	@Parameter(names = "-o", description = "output file name")
 	public String outputFile;
 }
+
+@Parameters(commandNames = "streamStatuses", commandDescription = "Stream Statuses on specified keywords.")
+class CommandStreamStatuses extends BaseCommand{
+	@Parameter(names = "-keywords", description = "Status containing Keywords.", required=true)
+	public String keywords;
+	@Parameter(names = "-store", description = "Should store upcoming statuses.")
+	public String store_streaming_data;
+}
+
 @Parameters(commandNames = "dumpFollowerIDs", commandDescription = "Followers IDs")
 class CommandDumpFollowerIDs extends BaseCommand{
 	@Parameter(names = "-uname", description = "user screen name")

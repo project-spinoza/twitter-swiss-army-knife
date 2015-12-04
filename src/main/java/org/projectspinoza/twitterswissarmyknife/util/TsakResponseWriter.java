@@ -33,12 +33,18 @@ public class TsakResponseWriter implements DataWriter {
 	private String output_file_name;
 	private PrintStream writer;
 
+	public TsakResponseWriter (){}
+	
+	public TsakResponseWriter(String outputfile) {
+		this.output_file_name = outputfile;
+	}
+	
 	@Override
 	public void write(Object twitterResponseData, String parsedCommand,
 			String outputFile) {
 		if (outputFile == null || outputFile.trim().isEmpty()) {
 			this.output_file_name = parsedCommand + "_out.txt";
-		} else {
+		}else {
 			this.output_file_name = outputFile;
 		}
 		write(twitterResponseData, parsedCommand);
@@ -107,6 +113,11 @@ public class TsakResponseWriter implements DataWriter {
 			responselistUserJsonWriter((List<ResponseList<User>>) twitterResponseData);
 		} else if (parsedCommand.equals("lookupFriendShip")) {
 			responselistFriendshipJsonWriter((List<ResponseList<Friendship>>) twitterResponseData);
+		}else if (parsedCommand.equals("streamStatuses")) {
+			
+			String trend_json = new Gson().toJson((Status)twitterResponseData);
+			writeLine(trend_json, true);
+			
 		} else {
 			log.info("No Parser found for -> " + parsedCommand);
 		}

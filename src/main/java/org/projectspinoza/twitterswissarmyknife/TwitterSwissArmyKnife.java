@@ -14,7 +14,6 @@ import org.projectspinoza.twitterswissarmyknife.util.TsakResponseWriter;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
 
 import com.beust.jcommander.JCommander;
@@ -29,6 +28,7 @@ public class TwitterSwissArmyKnife {
 	private JCommander subCommander;
 	private JCommander rootCommander;
 	private DataWriter dataWriter;
+	private String parsedCommand;
 	
 	public DataWriter getDataWriter() {
 		return dataWriter;
@@ -36,8 +36,8 @@ public class TwitterSwissArmyKnife {
 	private boolean authorize;
 	private Object data;
 	
+	private ConfigurationBuilder configurationBuilder;
 	private Twitter twitter;
-	private User user;
 	
 	private TwitterSwissArmyKnife() {
 		commandLineDriver = new CLIDriver();
@@ -73,64 +73,65 @@ public class TwitterSwissArmyKnife {
 	public Twitter getTwitterInstance() {
 		return twitter;
 	}
-	public User getUser() {
-		return user;
-	}
+
 	public TwitterSwissArmyKnife write(){
 		dataWriter.write(tsakInstance.data, subCommander.getParsedCommand(), commandLineDriver.getOutputFile());
 		return tsakInstance;	
 	}
-	private void executeCommand() throws TwitterException, IOException{
-		tsakInstance.data =  commandLineDriver.executeCommand(twitter);
+	protected void executeStreamingCommand() throws IOException{
+	    CommandStreamStatuses streamStatuses = (CommandStreamStatuses) getSubCommand(parsedCommand);
+	    (new TwitterStreamingExcecutor()).execute(configurationBuilder, streamStatuses);
+	}
+	protected void executeDumpCommand() throws IOException, TwitterException{
+	    if(!isAuthorized()){
+            authorizeUser();
+        }
+        if (isAuthorized()) {
+            Object subCommand = getSubCommand(parsedCommand);
+            tsakInstance.data =  commandLineDriver.executeCommand(twitter, parsedCommand, subCommand);
+        }else{log.error("User not authorized!");}
 	}
 	public TwitterSwissArmyKnife executeCommand(String[] args) throws TwitterException, ParameterException, IOException{
-		rootCommander = null;
+		if(args == null){return tsakInstance;}
+	    rootCommander = null;
 		rootCommander = new JCommander();
 		rootCommander.addCommand("tsak", tsakCommand);
 		subCommander = rootCommander.getCommands().get("tsak");
-		commandLineDriver.activateSubCommands(subCommander);
+		activateSubCommands();
 		rootCommander.parse(args);
-		if(!isAuthorized()){
-			authorizeUser();
-		}
-		if (isAuthorized()) {
-			executeCommand();
-		}else{log.error("User not authorized!");}
-		return tsakInstance;
-	}
-	private TwitterSwissArmyKnife authorizeUser() {
-		if (isAuthorized()){
-			return tsakInstance;
-		}
-		try {
-			if (!setCredentials()) {
-				log.error("Credentials not provided!");
-				authorize = false;
-				return tsakInstance;
-			}
-			ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-			configurationBuilder.setDebugEnabled(true)
-					.setOAuthConsumerKey(tsakCommand.getConsumerKey())
-					.setOAuthConsumerSecret(tsakCommand.getConsumerSecret())
-					.setOAuthAccessToken(tsakCommand.getAccessToken())
-					.setOAuthAccessTokenSecret(tsakCommand.getAccessSecret());
-
-			twitter = new TwitterFactory(configurationBuilder.build())
-					.getInstance();
-			user = twitter.verifyCredentials();
-			authorize = true;
-
-		} catch (IOException ioex) {
-			log.error("Cannot read tsak.properties file!");
-			authorize = false;
-		} catch (TwitterException tex) {
-			log.error("Authorization failed!");
-			log.error(tex.getErrorMessage());
-			authorize = false;
+		parsedCommand = subCommander.getParsedCommand();
+		
+		setConfigurationBuilder();
+		if (parsedCommand.equals("streamStatuses")){
+		    executeStreamingCommand();   
+		}else{
+		    executeDumpCommand();
 		}
 		return tsakInstance;
 	}
-	private boolean setCredentials() throws IOException {
+	private void authorizeUser() throws TwitterException{
+	    twitter = new TwitterFactory(getConfigurationBuilder().build()).getInstance();
+        twitter.verifyCredentials();
+        authorize = true;
+	}
+	private void setConfigurationBuilder() throws IOException{
+	    if (isAuthorized()){ return; }
+        if (!setCredentials()) {
+            log.error("Credentials not provided!");
+            authorize = false;
+            return;
+        }
+        configurationBuilder = new ConfigurationBuilder();
+        configurationBuilder.setDebugEnabled(true)
+                .setOAuthConsumerKey(tsakCommand.getConsumerKey())
+                .setOAuthConsumerSecret(tsakCommand.getConsumerSecret())
+                .setOAuthAccessToken(tsakCommand.getAccessToken())
+                .setOAuthAccessTokenSecret(tsakCommand.getAccessSecret());
+	}
+	private ConfigurationBuilder getConfigurationBuilder(){
+	    return configurationBuilder;
+	}
+	private boolean setCredentials() throws IOException{
 		if (!rootCommander.getParsedCommand().equals("tsak")) {
 			log.info("Invalid Command: " + rootCommander.getParsedCommand());
 			return false;
@@ -160,4 +161,52 @@ public class TwitterSwissArmyKnife {
 		}
 		return true;
 	}
+	
+	 public void activateSubCommands() {
+	     
+        this.subCommander.addCommand(new CommandDumpFollowerIDs());
+        this.subCommander.addCommand(new CommandDumpFriendIDs());
+        this.subCommander.addCommand(new CommandDumpAccountSettings());
+        this.subCommander.addCommand(new CommandDumpUserTimeLine());
+        this.subCommander.addCommand(new CommandDumpHomeTimeLine());
+        this.subCommander.addCommand(new CommandDumpTweets());
+        this.subCommander.addCommand(new CommandDumpOwnRetweets());
+        this.subCommander.addCommand(new CommandDumpStatus());
+        this.subCommander.addCommand(new CommandDumpRetweeters());
+        this.subCommander.addCommand(new CommandDumpMentionsTimeLine());
+        this.subCommander.addCommand(new CommandDumpUsersLookup());
+        this.subCommander.addCommand(new CommandDumpBlockList());
+        this.subCommander.addCommand(new CommandSearchUsers());
+        this.subCommander.addCommand(new CommandShowFriendShip());
+        this.subCommander.addCommand(new CommandDumpFollowersList());
+        this.subCommander.addCommand(new CommandDumpFriendsList());
+        this.subCommander.addCommand(new CommandDumpFavourites());
+        this.subCommander.addCommand(new CommandDumpSugeestedUserCats());
+        this.subCommander.addCommand(new CommandDumpUserSuggestions());
+        this.subCommander.addCommand(new CommandDumpMemberSuggestions());
+        this.subCommander.addCommand(new CommandDumpUserLists());
+        this.subCommander.addCommand(new CommandDumpListStatuses());
+        this.subCommander.addCommand(new CommandDumpSavedSearches());
+        this.subCommander.addCommand(new CommandLookupFriendShip());
+        this.subCommander.addCommand(new CommandDumpIncomingFriendships());
+        this.subCommander.addCommand(new CommandDumpOutgoingFriendships());
+        this.subCommander.addCommand(new CommandDumpGeoDetails());
+        this.subCommander.addCommand(new CommandDumpSimilarPlaces());
+        this.subCommander.addCommand(new CommandSearchPlace());
+        this.subCommander.addCommand(new CommandDumpAvailableTrends());
+        this.subCommander.addCommand(new CommandDumpPlaceTrends());
+        this.subCommander.addCommand(new CommandDumpClosestTrends());
+        this.subCommander.addCommand(new CommandDumpMutesIDs());
+        this.subCommander.addCommand(new CommandDumpMutesList());
+        this.subCommander.addCommand(new CommandDumpUserListMemberships());
+        this.subCommander.addCommand(new CommandDumpUserListSubscriptions());
+        this.subCommander.addCommand(new CommandDumpUserListMembers());
+        this.subCommander.addCommand(new CommandDumpUserListSubscribers());
+        this.subCommander.addCommand(new CommandStreamStatuses());
+    }
+	 
+	 public Object getSubCommand(String parsedCommand) {
+        return subCommander.getCommands().get(parsedCommand).getObjects()
+                .get(0);
+    }
 }
