@@ -67,3 +67,4 @@ Run either of the available TSAK commands.
 <code> tsak dumpUserListSubscribers -lid 02020202 -limit 1 -o subscribers.txt</code><br>
 <code> tsak dumpUserListMembers -lid 02020202 -limit 1 -o output.txt</code><br>
 <code> tsak dumpUserListSubscriptions -uname screenName -limit 1 -o subscription.txt</code><br>
+<code> tsak streamStatuses -keywords "iPhone" -store true </code>
