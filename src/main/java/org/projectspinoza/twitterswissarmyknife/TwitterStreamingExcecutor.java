@@ -30,12 +30,15 @@ public class TwitterStreamingExcecutor {
 
         String keywords = streamStatuses.keywords;
         String keywordsArray[] = keywords.split(",");
-        boolean store = Boolean.parseBoolean(streamStatuses.store_streaming_data);
-        twitterStream = new TwitterStreamFactory(configurationBuilder.build()).getInstance();
-        TwitterStatusStreams statusStreams = new TwitterStatusStreams(keywordsArray, store, responseWriter);
-        FilterQuery filterQuery = new FilterQuery();
-        filterQuery.track(keywordsArray);
-        twitterStream.addListener(statusStreams);
-        twitterStream.filter(filterQuery);
+        if (streamStatuses.store_streaming_data.equals("true")|| streamStatuses.store_streaming_data.equals("false")) {
+            twitterStream = new TwitterStreamFactory(configurationBuilder.build()).getInstance();
+            TwitterStatusStreams statusStreams = new TwitterStatusStreams(keywordsArray, Boolean.parseBoolean(streamStatuses.store_streaming_data), responseWriter);
+            FilterQuery filterQuery = new FilterQuery();
+            filterQuery.track(keywordsArray);
+            twitterStream.addListener(statusStreams);
+            twitterStream.filter(filterQuery);
+        }else {
+        	System.out.println("Error command argument.");
+        }
     }
 }
