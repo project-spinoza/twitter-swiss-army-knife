@@ -20,102 +20,127 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 
 public class TwitterSwissArmyKnife {
-	private static Logger log = LogManager.getRootLogger();
-	private static TwitterSwissArmyKnife tsakInstance = null;
+    private static Logger log = LogManager.getRootLogger();
+    private static TwitterSwissArmyKnife tsakInstance = null;
 
-	private CLIDriver commandLineDriver;
-	private TsakCommand tsakCommand;
-	private JCommander subCommander;
-	private JCommander rootCommander;
-	private DataWriter dataWriter;
-	private String parsedCommand;
-	
-	public DataWriter getDataWriter() {
-		return dataWriter;
-	}
-	private boolean authorize;
-	private Object data;
-	
-	private ConfigurationBuilder configurationBuilder;
-	private Twitter twitter;
-	
-	private TwitterSwissArmyKnife() {
-		commandLineDriver = new CLIDriver();
-		tsakCommand = new TsakCommand();
-		dataWriter = new TsakResponseWriter();
-	}
-	public static TwitterSwissArmyKnife getInstance() {	
-		if (tsakInstance == null) {
-			tsakInstance = new TwitterSwissArmyKnife();
-		}
-		return tsakInstance;
-	}
-	public boolean isAuthorized() {
-		return authorize;
-	}
-	public TwitterSwissArmyKnife setCommandLineDriver(CLIDriver commandLineDriver) {
-		log.info("setting CommandLineDriver");
-		tsakInstance.commandLineDriver = commandLineDriver;
-		return tsakInstance;
-	}
-	public TwitterSwissArmyKnife setTsakCommand(TsakCommand tsakCommands) {
-		log.info("setting tsakCommand");
-		tsakInstance.tsakCommand = tsakCommands;
-		return tsakInstance;
-	}
-	public TwitterSwissArmyKnife setWriter(DataWriter dataWriter){
-		tsakInstance.dataWriter = dataWriter;
-		return tsakInstance;
-	}
-	public Object getResult(){
-		return tsakInstance.data;
-	}
-	public Twitter getTwitterInstance() {
-		return twitter;
-	}
+    private CLIDriver commandLineDriver;
+    private TsakCommand tsakCommand;
+    private JCommander subCommander;
+    private JCommander rootCommander;
+    private DataWriter dataWriter;
+    private String parsedCommand;
 
-	public TwitterSwissArmyKnife write(){
-		dataWriter.write(tsakInstance.data, subCommander.getParsedCommand(), commandLineDriver.getOutputFile());
-		return tsakInstance;	
-	}
-	protected void executeStreamingCommand() throws IOException{
-	    CommandStreamStatuses streamStatuses = (CommandStreamStatuses) getSubCommand(parsedCommand);
-	    (new TwitterStreamingExcecutor()).execute(configurationBuilder, streamStatuses);
-	}
-	protected void executeDumpCommand() throws IOException, TwitterException{
-	    if(!isAuthorized()){
+    public DataWriter getDataWriter() {
+        return dataWriter;
+    }
+
+    private boolean authorize;
+    private Object data;
+
+    private ConfigurationBuilder configurationBuilder;
+    private Twitter twitter;
+
+    private TwitterSwissArmyKnife() {
+        commandLineDriver = new CLIDriver();
+        tsakCommand = new TsakCommand();
+        dataWriter = new TsakResponseWriter();
+    }
+
+    public static TwitterSwissArmyKnife getInstance() {
+        if (tsakInstance == null) {
+            tsakInstance = new TwitterSwissArmyKnife();
+        }
+        return tsakInstance;
+    }
+
+    public boolean isAuthorized() {
+        return authorize;
+    }
+
+    public TwitterSwissArmyKnife setCommandLineDriver(
+            CLIDriver commandLineDriver) {
+        log.info("setting CommandLineDriver");
+        tsakInstance.commandLineDriver = commandLineDriver;
+        return tsakInstance;
+    }
+
+    public TwitterSwissArmyKnife setTsakCommand(TsakCommand tsakCommands) {
+        log.info("setting tsakCommand");
+        tsakInstance.tsakCommand = tsakCommands;
+        return tsakInstance;
+    }
+
+    public TwitterSwissArmyKnife setWriter(DataWriter dataWriter) {
+        tsakInstance.dataWriter = dataWriter;
+        return tsakInstance;
+    }
+
+    public Object getResult() {
+        return tsakInstance.data;
+    }
+
+    public Twitter getTwitterInstance() {
+        return twitter;
+    }
+
+    public TwitterSwissArmyKnife write() {
+        dataWriter.write(tsakInstance.data, subCommander.getParsedCommand(),
+                commandLineDriver.getOutputFile());
+        return tsakInstance;
+    }
+
+    protected void executeStreamingCommand() throws IOException {
+        CommandStreamStatuses streamStatuses = (CommandStreamStatuses) getSubCommand(parsedCommand);
+        (new TwitterStreamingExcecutor()).execute(configurationBuilder,
+                streamStatuses);
+    }
+
+    protected void executeDumpCommand() throws IOException, TwitterException {
+        if (!isAuthorized()) {
             authorizeUser();
         }
         if (isAuthorized()) {
             Object subCommand = getSubCommand(parsedCommand);
-            tsakInstance.data =  commandLineDriver.executeCommand(twitter, parsedCommand, subCommand);
-        }else{log.error("User not authorized!");}
-	}
-	public TwitterSwissArmyKnife executeCommand(String[] args) throws TwitterException, ParameterException, IOException{
-		if(args == null){return tsakInstance;}
-	    rootCommander = null;
-		rootCommander = new JCommander();
-		rootCommander.addCommand("tsak", tsakCommand);
-		subCommander = rootCommander.getCommands().get("tsak");
-		activateSubCommands();
-		rootCommander.parse(args);
-		parsedCommand = subCommander.getParsedCommand();
-		
-		setConfigurationBuilder();
-		if (parsedCommand.equals("streamStatuses")){
-		    executeStreamingCommand();   
-		}else{
-		    executeDumpCommand();
-		}
-		return tsakInstance;
-	}
-	private void authorizeUser() throws TwitterException{
-	    twitter = new TwitterFactory(getConfigurationBuilder().build()).getInstance();
+            tsakInstance.data = commandLineDriver.executeCommand(twitter,
+                    parsedCommand, subCommand);
+        } else {
+            log.error("User not authorized!");
+        }
+    }
+
+    public TwitterSwissArmyKnife executeCommand(String[] args)
+            throws TwitterException, ParameterException, IOException {
+        if (args == null) {
+            return tsakInstance;
+        }
+        rootCommander = null;
+        rootCommander = new JCommander();
+        rootCommander.addCommand("tsak", tsakCommand);
+        subCommander = rootCommander.getCommands().get("tsak");
+        activateSubCommands();
+        rootCommander.parse(args);
+        parsedCommand = subCommander.getParsedCommand();
+
+        setConfigurationBuilder();
+        if (parsedCommand.equals("streamStatuses")) {
+            executeStreamingCommand();
+        } else {
+            executeDumpCommand();
+        }
+        return tsakInstance;
+    }
+
+    private void authorizeUser() throws TwitterException {
+        twitter = new TwitterFactory(getConfigurationBuilder().build())
+                .getInstance();
         twitter.verifyCredentials();
         authorize = true;
-	}
-	private void setConfigurationBuilder() throws IOException{
-	    if (isAuthorized()){ return; }
+    }
+
+    private void setConfigurationBuilder() throws IOException {
+        if (isAuthorized()) {
+            return;
+        }
         if (!setCredentials()) {
             log.error("Credentials not provided!");
             authorize = false;
@@ -127,43 +152,48 @@ public class TwitterSwissArmyKnife {
                 .setOAuthConsumerSecret(tsakCommand.getConsumerSecret())
                 .setOAuthAccessToken(tsakCommand.getAccessToken())
                 .setOAuthAccessTokenSecret(tsakCommand.getAccessSecret());
-	}
-	private ConfigurationBuilder getConfigurationBuilder(){
-	    return configurationBuilder;
-	}
-	private boolean setCredentials() throws IOException{
-		if (!rootCommander.getParsedCommand().equals("tsak")) {
-			log.info("Invalid Command: " + rootCommander.getParsedCommand());
-			return false;
-		}
-		if (tsakCommand.getConsumerKey() == null || tsakCommand.getConsumerSecret() == null
-				|| tsakCommand.getAccessToken() == null
-				|| tsakCommand.getAccessSecret() == null) {
-			String env_var = System.getenv("TSAK_CONF");
-			if (env_var == null || env_var.isEmpty()) {
-				log.error("Environment variable not set. TSAK_CONF {}");
-				return false;
-			}
-			File propConfFile = new File(env_var + File.separator
-					+ "tsak.properties");
-			if (!propConfFile.exists()) {
-				log.error("tsak.properties file does not exist in: " + env_var);
-				return false;
-			}
-			Properties prop = new Properties();
-			InputStream propInstream = new FileInputStream(propConfFile);
-			prop.load(propInstream);
-			propInstream.close();
-			tsakCommand.setConsumerKey(prop.getProperty("consumerKey").trim());
-			tsakCommand.setConsumerSecret(prop.getProperty("consumerSecret").trim());
-			tsakCommand.setAccessToken(prop.getProperty("accessToken").trim());
-			tsakCommand.setAccessSecret(prop.getProperty("accessSecret").trim());
-		}
-		return true;
-	}
-	
-	 public void activateSubCommands() {
-	     
+    }
+
+    private ConfigurationBuilder getConfigurationBuilder() {
+        return configurationBuilder;
+    }
+
+    private boolean setCredentials() throws IOException {
+        if (!rootCommander.getParsedCommand().equals("tsak")) {
+            log.info("Invalid Command: " + rootCommander.getParsedCommand());
+            return false;
+        }
+        if (tsakCommand.getConsumerKey() == null
+                || tsakCommand.getConsumerSecret() == null
+                || tsakCommand.getAccessToken() == null
+                || tsakCommand.getAccessSecret() == null) {
+            String env_var = System.getenv("TSAK_CONF");
+            if (env_var == null || env_var.isEmpty()) {
+                log.error("Environment variable not set. TSAK_CONF {}");
+                return false;
+            }
+            File propConfFile = new File(env_var + File.separator
+                    + "tsak.properties");
+            if (!propConfFile.exists()) {
+                log.error("tsak.properties file does not exist in: " + env_var);
+                return false;
+            }
+            Properties prop = new Properties();
+            InputStream propInstream = new FileInputStream(propConfFile);
+            prop.load(propInstream);
+            propInstream.close();
+            tsakCommand.setConsumerKey(prop.getProperty("consumerKey").trim());
+            tsakCommand.setConsumerSecret(prop.getProperty("consumerSecret")
+                    .trim());
+            tsakCommand.setAccessToken(prop.getProperty("accessToken").trim());
+            tsakCommand
+                    .setAccessSecret(prop.getProperty("accessSecret").trim());
+        }
+        return true;
+    }
+
+    public void activateSubCommands() {
+
         this.subCommander.addCommand(new CommandDumpFollowerIDs());
         this.subCommander.addCommand(new CommandDumpFriendIDs());
         this.subCommander.addCommand(new CommandDumpAccountSettings());
@@ -204,8 +234,8 @@ public class TwitterSwissArmyKnife {
         this.subCommander.addCommand(new CommandDumpUserListSubscribers());
         this.subCommander.addCommand(new CommandStreamStatuses());
     }
-	 
-	 public Object getSubCommand(String parsedCommand) {
+
+    public Object getSubCommand(String parsedCommand) {
         return subCommander.getCommands().get(parsedCommand).getObjects()
                 .get(0);
     }

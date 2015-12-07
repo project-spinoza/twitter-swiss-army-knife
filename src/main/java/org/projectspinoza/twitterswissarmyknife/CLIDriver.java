@@ -33,9 +33,9 @@ public class CLIDriver {
     private Object result = null;
     int remApiLimits = 0;
 
-    public Object executeCommand(Twitter twitter, String parsedCommand, Object subCommand) throws TwitterException,
-            IOException {
-        
+    public Object executeCommand(Twitter twitter, String parsedCommand,
+            Object subCommand) throws TwitterException, IOException {
+
         log.info("Executing Command [" + parsedCommand + "]");
 
         if (parsedCommand.equals("dumpFollowerIDs")) {
@@ -116,7 +116,7 @@ public class CLIDriver {
             result = getUserListSubscriptions(twitter, subCommand);
         }
 
-        log.info("GENERATED ["+outputFile+"]");
+        log.info("GENERATED [" + outputFile + "]");
         showRateLimitStatus();
         return result;
     }
