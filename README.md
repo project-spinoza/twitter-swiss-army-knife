@@ -20,6 +20,7 @@ Run either of the available TSAK commands.
 <ul>
 <li>New option <code>-limit</code> added which specifies the number of api calls to be consumed for the commands which can consume  more than one api call, default <code>-limit 1</code></li>
 <li>For detail description on available commands refer to: http://openspinoza.org/tsak/commands</li>
+<li>You need to have twitter's access key, token key to run TSAK, for details on how to get these refer to [[prerequisites| wiki/Prerequisites]]</li>
 </ul>
 <h3>Commands</h3>
 
