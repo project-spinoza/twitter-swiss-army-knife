@@ -20,7 +20,7 @@ import com.beust.jcommander.ParameterException;
  * 
  * TwitterSwissArmyKnife
  * 
- * Is a very simple, straightforward, easy to use and flexible API. It
+ * Is a very simple, straight forward, easy to use and flexible API. It
  * provides Method chaining, re-usability, flexibility and simplicity.
  *
  */
@@ -72,20 +72,19 @@ public class Main {
          * multiple commands in a loop?)
          * ===================================================================
          * 
-         * String[] followersCommand =
-         * {"tsak","dumpFollowerIDs","-uname ","dmkavanagh", "-o",
-         * "followersIds.txt"}; String[] userListsCommand = {"tsak",
-         * "dumpUserLists", "-uname","dmkavanagh", "-o", "userLists.txt"};
-         * String[] userSuggestionsCommand = {"tsak", "dumpUserSuggestions",
-         * "-slug", "Sports", "-o", "userSuggestions.txt"};
+         * String[] followersCommand = {"tsak","dumpFollowerIDs","-uname", "dmkavanagh", "-o", "followersIds.txt"}; 
+         * String[] userListsCommand = {"tsak", "dumpUserLists", "-uname", "dmkavanagh", "-o", "userLists.txt"};
+         * String[] userSuggestionsCommand = {"tsak", "dumpUserSuggestions", "-slug", "Sports", "-o", "userSuggestions.txt"};
          *
          * List<String[]> commands = new ArrayList<String[]>();
-         * commands.add(followersCommand); commands.add(userListsCommand);
+         * commands.add(followersCommand); 
+         * commands.add(userListsCommand);
          * commands.add(userSuggestionsCommand);
          *
          * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
          * for(String[] command : commands){
-         * tsak.executeCommand(command).write(); }
+         *      tsak.executeCommand(command).write(); 
+         * }
          *
          */
 
@@ -96,8 +95,10 @@ public class Main {
          * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
          * 
          * tsak.setCommandLineDriver(yourCommandLineDriver)
-         * .setTsakCommand(yourTsakCommands) .setWriter(yourWriter) .set...()
-         * .executeCommand(args).write();
+         *     .setTsakCommand(yourTsakCommands) 
+         *     .setWriter(yourWriter) 
+         *     .set...()
+         *     .executeCommand(args).write();
          */
 
         /**
