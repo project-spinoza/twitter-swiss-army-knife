@@ -18,10 +18,10 @@ import com.beust.jcommander.ParameterException;
 /**
  * @author org.projectspinoza
  * 
- *         TwitterSwissArmyKnife
+ * TwitterSwissArmyKnife
  * 
- *         Is a very simple, straightforward, easy to use and flexible API. It
- *         provides Method chaining, re-usability, flexibility and simplicity.
+ * Is a very simple, straightforward, easy to use and flexible API. It
+ * provides Method chaining, re-usability, flexibility and simplicity.
  *
  */
 public class Main {
@@ -34,7 +34,8 @@ public class Main {
         /**
          * TSAK USAGE
          * 
-         * 1. USAGE (NORMAL|SIMPLE) =======================================
+         * 1. USAGE (NORMAL|SIMPLE) 
+         * =======================================
          * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
          * tsak.executeCommand(args).write();
          */
@@ -42,7 +43,8 @@ public class Main {
         /**
          * TSAK USAGE
          * 
-         * 2. Using TSAK as a shell ===================================
+         * 2. Using TSAK as a shell 
+         * ===================================
          * 
          */
         consoleReader = new ConsoleReader();
@@ -68,8 +70,7 @@ public class Main {
          * 
          * (Don't want to provide credentials for each command OR want to run
          * multiple commands in a loop?)
-         * ========================================
-         * =========================================================
+         * ===================================================================
          * 
          * String[] followersCommand =
          * {"tsak","dumpFollowerIDs","-uname ","dmkavanagh", "-o",
@@ -89,10 +90,8 @@ public class Main {
          */
 
         /**
-         * 4: USAGE (Do you want to provide your own CommandLineDriver,
-         * DataWriter etc.? )
-         * ====================================================
-         * ============================
+         * 4: USAGE (Do you want to provide your own CommandLineDriver, DataWriter etc.? )
+         * ===============================================================================
          * 
          * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
          * 
@@ -102,23 +101,24 @@ public class Main {
          */
 
         /**
-         * 5: USAGE (Do you want to get/analyze the original response from
-         * twitter API ?)
-         * ========================================================
-         * =======================
+         * 5: USAGE (Do you want to get/analyze the original response from twitter API ?)
+         * =============================================================================
          * 
          * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
          *
-         * i. get the result only ------------------- Object result =
-         * tsak.executeCommand(args).getResult();
+         * i. get the result only 
+         * ------------------- 
+         * Object result = tsak.executeCommand(args).getResult();
          *
-         * ii. write and then get the result ---------------------------------
+         * ii. write and then get the result
+         * ---------------------------------
          * Object result = tsak.executeCommand(args).write().getResult();
          *
          */
 
         /**
-         * 5: USAGE (much more) ============================
+         * 5: USAGE (much more) 
+         * ====================
          * 
          * for more detailed usage study the API. (TwitterSwissArmyKnife)
          * 
