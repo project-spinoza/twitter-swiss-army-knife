@@ -38,7 +38,7 @@ import com.google.gson.Gson;
  */
 public class TsakResponseWriter implements DataWriter {
     private static Logger log = LogManager.getRootLogger();
-    private String output_file_name;
+    private String outputFileName;
     private PrintStream writer;
     
     /**
@@ -53,16 +53,16 @@ public class TsakResponseWriter implements DataWriter {
      * @param outputfile
      */
     public TsakResponseWriter(String outputfile) {
-        this.output_file_name = outputfile;
+        this.outputFileName = outputfile;
     }
     
     @Override
     public void write(Object twitterResponseData, String parsedCommand,
             String outputFile) {
         if (outputFile == null || outputFile.trim().isEmpty()) {
-            this.output_file_name = parsedCommand + "_out.txt";
+            this.outputFileName = parsedCommand + "_out.txt";
         } else {
-            this.output_file_name = outputFile;
+            this.outputFileName = outputFile;
         }
         write(twitterResponseData, parsedCommand);
     }
@@ -219,8 +219,8 @@ public class TsakResponseWriter implements DataWriter {
     public void responseSavedSearchesJsonWriter(
             ResponseList<SavedSearch> savedsearches) {
         for (SavedSearch savedSearch : savedsearches) {
-            String savedsearches_json = new Gson().toJson(savedSearch);
-            writeLine(savedsearches_json, true);
+            String savedsearchesJson = new Gson().toJson(savedSearch);
+            writeLine(savedsearchesJson, true);
         }
     }
     /**
@@ -230,8 +230,8 @@ public class TsakResponseWriter implements DataWriter {
      */
     public void responseUserListsJsonWriter(ResponseList<UserList> userlists) {
         for (UserList list : userlists) {
-            String ulist_json = new Gson().toJson(list);
-            writeLine(ulist_json, true);
+            String ulistJson = new Gson().toJson(list);
+            writeLine(ulistJson, true);
         }
     }
     /**
@@ -240,14 +240,14 @@ public class TsakResponseWriter implements DataWriter {
      * @param relation
      */
     public void relationshipJsonWriter(Relationship relation) {
-        String rel_json = new Gson().toJson(relation);
-        writeLine(rel_json, true);
+        String relJson = new Gson().toJson(relation);
+        writeLine(relJson, true);
     }
 
     public void userListJsonWriter(List<User> uList) {
         for (User user : uList) {
-            String user_json = new Gson().toJson(user);
-            writeLine(user_json, true);
+            String userJson = new Gson().toJson(user);
+            writeLine(userJson, true);
         }
     }
     /**
@@ -257,8 +257,8 @@ public class TsakResponseWriter implements DataWriter {
      */
     public void statusListJsonWriter(List<Status> statusList) {
         for (Status status : statusList) {
-            String status_json = new Gson().toJson(status);
-            writeLine(status_json, true);
+            String statusJson = new Gson().toJson(status);
+            writeLine(statusJson, true);
         }
     }
     /**
@@ -269,8 +269,8 @@ public class TsakResponseWriter implements DataWriter {
     public void statusListsJsonWriter(List<List<Status>> listOfStatusList) {
         for (List<Status> sList : listOfStatusList) {
             for (Status status : sList) {
-                String status_json = new Gson().toJson(status);
-                writeLine(status_json, true);
+                String statusJson = new Gson().toJson(status);
+                writeLine(statusJson, true);
             }
         }
     }
@@ -282,8 +282,8 @@ public class TsakResponseWriter implements DataWriter {
     public void responseListStatusJsonWriter(List<ResponseList<Status>> statusResponseList) {
         for (ResponseList<Status> sList : statusResponseList) {
             for (Status status : sList) {
-                String status_json = new Gson().toJson(status);
-                writeLine(status_json, true);
+                String statusJson = new Gson().toJson(status);
+                writeLine(statusJson, true);
             }
         }
     }
@@ -295,8 +295,8 @@ public class TsakResponseWriter implements DataWriter {
     public void responselistUserJsonWriter(List<ResponseList<User>> userResponseList) {
         for (ResponseList<User> users : userResponseList) {
             for (User user : users) {
-                String status_json = new Gson().toJson(user);
-                writeLine(status_json, true);
+                String statusJson = new Gson().toJson(user);
+                writeLine(statusJson, true);
             }
         }
     }
@@ -309,8 +309,8 @@ public class TsakResponseWriter implements DataWriter {
             List<ResponseList<Friendship>> Friendships) {
         for (ResponseList<Friendship> Friendship : Friendships) {
             for (Friendship friendship : Friendship) {
-                String status_json = new Gson().toJson(friendship);
-                writeLine(status_json, true);
+                String statusJson = new Gson().toJson(friendship);
+                writeLine(statusJson, true);
             }
         }
     }
@@ -398,9 +398,9 @@ public class TsakResponseWriter implements DataWriter {
      * @param ids
      */
     public void IDsOnlyJsonWriter(IDs ids) {
-        JSONObject ids_json = new JSONObject();
-        ids_json.accumulate("ids", ids.getIDs());
-        writeLine(ids_json.toString(), true);
+        JSONObject idsJson = new JSONObject();
+        idsJson.accumulate("ids", ids.getIDs());
+        writeLine(idsJson.toString(), true);
     }
     /**
      * creates writer handle.
@@ -409,7 +409,7 @@ public class TsakResponseWriter implements DataWriter {
     public void getWriterHandle() {
         try {
             this.writer = new PrintStream(new FileOutputStream(new File(
-                    this.output_file_name), true));
+                    this.outputFileName), true));
         } catch (FileNotFoundException e) {
             log.error("Error writing to file.. ->" + e.getMessage());
         }
