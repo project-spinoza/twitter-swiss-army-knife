@@ -22,6 +22,8 @@ Run either of the available TSAK commands.
 <li>For detail description on available commands refer to: http://openspinoza.org/tsak/commands</li>
 <li>You need to have twitter's access key, token key to run TSAK, for details refer to <a href="https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites">Setup</a> page</li>
 </ul>
+<h5>API Documentation</h5>
+<ul><li>[JavaDoc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)</li></ul>
 <h3>Commands</h3>
 
 <code> tsak dumpAccountSettings -limit 1 -o accountSettings.txt </code><br>
