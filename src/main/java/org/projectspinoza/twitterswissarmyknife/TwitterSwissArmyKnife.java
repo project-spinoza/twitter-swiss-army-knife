@@ -22,9 +22,11 @@ import com.beust.jcommander.ParameterException;
 /**
  * TwitterSwissArmyKnife
  * A simple command line utility that allows a user to interact with Twitter's public API.
+ * it is very simple, straight forward, easy to use and flexible API. It
+ * provides Method chaining, re-usability, flexibility and simplicity.
  * 
  * @author org.projectspinoza
- * @version 1.0.0
+ * @version v1.0
  *
  */
 public class TwitterSwissArmyKnife {
@@ -144,7 +146,7 @@ public class TwitterSwissArmyKnife {
      * 
      * @throws IOException
      */
-    protected void executeStreamingCommand() throws IOException {
+    public void executeStreamingCommand() throws IOException {
         CommandStreamStatuses streamStatuses = (CommandStreamStatuses) getSubCommand(parsedCommand);
         (new TwitterStreamingExcecutor()).execute(configurationBuilder,
                 streamStatuses);
@@ -155,7 +157,7 @@ public class TwitterSwissArmyKnife {
      * @throws IOException
      * @throws TwitterException
      */
-    protected void executeDumpCommand() throws IOException, TwitterException {
+    public void executeDumpCommand() throws IOException, TwitterException {
         if (!isAuthorized()) {
             authorizeUser();
         }

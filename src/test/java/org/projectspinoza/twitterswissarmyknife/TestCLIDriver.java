@@ -35,6 +35,15 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 import twitter4j.UserList;
 
+/**
+ * TestCLIDriver
+ * this class contains various test cases for CLIDriver class.
+ * provides test cases on most of the available tsakCommands.
+ * 
+ * @author org.projectspinoza
+ * @version v1.0
+ *
+ */
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ CLIDriver.class, Paging.class, Query.class, QueryResult.class, GeoLocation.class, GeoQuery.class })
@@ -62,7 +71,10 @@ public class TestCLIDriver {
     ResponseList<Category> categoryResponseList;
     ResponseList<User> user;
     ResponseList<SavedSearch> savedSearch;
-
+    /**
+     * prepares TestCLIDriver class.
+     * 
+     */
     @SuppressWarnings("unchecked")
     @Before
     public void setup() {
@@ -83,7 +95,11 @@ public class TestCLIDriver {
         user = Mockito.mock(ResponseList.class);
         savedSearch = Mockito.mock(ResponseList.class);
     }
-
+    /**
+     * test case for the command dumpFollowersIDs.
+     * 
+     * @throws TwitterException
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void dumpFollowersIDs() throws TwitterException {
@@ -102,7 +118,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpFriendIDs.
+     * 
+     * @throws TwitterException
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void dumpFriendIDs() throws TwitterException {
@@ -121,7 +141,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpHomeTimeLine.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpHomeTimeLine() throws Exception {
@@ -134,7 +158,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpAccountSettings.
+     * 
+     * @throws Exception
+     */
     @Test
     public void testDumpAccountSettings() throws Exception {
         CommandDumpAccountSettings subCommand = new CommandDumpAccountSettings();
@@ -146,7 +174,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpOwnRetweets.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpOwnRetweets() throws Exception {
@@ -159,7 +191,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpStatus.
+     * 
+     * @throws Exception
+     */
     @Test
     public void testDumpStatus() throws Exception {
         CommandDumpStatus subCommand = new CommandDumpStatus();
@@ -172,7 +208,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpMentionsTimeLine.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpMentionsTimeLine() throws Exception {
@@ -185,7 +225,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpBlockLists.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpBlockList() throws Exception {
@@ -198,7 +242,10 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpUserTimeLine.
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpUserTimeLine() throws Exception {
@@ -217,7 +264,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpSearchUsers.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void searchUsers() throws Exception {
@@ -236,7 +287,12 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpFriendList.
+     * 
+     * @throws TwitterException
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpFriendList() throws TwitterException, IOException {
@@ -254,7 +310,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpListStatuses.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpListStatuses() throws Exception {
@@ -272,7 +332,12 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpFollowersList.
+     * 
+     * @throws TwitterException
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpFollowersList() throws TwitterException, IOException {
@@ -290,7 +355,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpFavourites.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpFavourites() throws Exception {
@@ -303,7 +372,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpSavedSearches.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpSavedSearches() throws Exception {
@@ -316,7 +389,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpUserSuggestions.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpUserSuggestions() throws Exception {
@@ -331,7 +408,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpMemberSuggestions.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpMemberSuggestions() throws Exception {
@@ -346,7 +427,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpSugestedUserCats.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpSugeestedUserCats() throws Exception {
@@ -359,7 +444,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpUserLists.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testdumpUserLists() throws Exception {
@@ -373,7 +462,11 @@ public class TestCLIDriver {
 
         assertEquals(expected, result);
     }
-
+    /**
+     * test case for the command dumpTweets.
+     * 
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testDumpTweets() throws Exception {

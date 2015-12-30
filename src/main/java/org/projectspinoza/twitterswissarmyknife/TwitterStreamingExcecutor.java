@@ -13,10 +13,24 @@ import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
+/**
+ * TwitterStreamingExcecutor
+ * contains logic for handling and executing twitter streaming API commands.
+ * 
+ * @author org.projectspinoza
+ * @version v1.0
+ *
+ */
 public class TwitterStreamingExcecutor {
     private static Logger log = LogManager.getRootLogger();
     private TwitterStream twitterStream;
-
+    /**
+     * executes twitter streaming command.
+     * 
+     * @param configurationBuilder
+     * @param streamStatuses
+     * @throws IOException
+     */
     public void execute(ConfigurationBuilder configurationBuilder,
             CommandStreamStatuses streamStatuses) throws IOException {
 
@@ -32,7 +46,13 @@ public class TwitterStreamingExcecutor {
             }
         }
     }
-
+    /**
+     * dump twitter streaming statuses.
+     * 
+     * @param configurationBuilder
+     * @param streamStatuses
+     * @param responseWriter
+     */
     private void streamedStatuses(ConfigurationBuilder configurationBuilder,
             CommandStreamStatuses streamStatuses,
             TsakResponseWriter responseWriter) {

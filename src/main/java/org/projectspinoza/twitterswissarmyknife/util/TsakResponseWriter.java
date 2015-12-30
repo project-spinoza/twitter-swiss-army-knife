@@ -28,18 +28,34 @@ import twitter4j.UserList;
 
 import com.google.gson.Gson;
 
+/**
+ * TsakResponseWriter
+ * writes results of the executed command to the mentioned output text file.
+ * 
+ * @author org.projectspinoza
+ * @version v1.0
+ *
+ */
 public class TsakResponseWriter implements DataWriter {
     private static Logger log = LogManager.getRootLogger();
     private String output_file_name;
     private PrintStream writer;
-
+    
+    /**
+     * default constructor for TsakResponseWriter
+     */
     public TsakResponseWriter() {
     }
-
+    
+    /**
+     * constructs TsakResponseWriter instance.
+     * 
+     * @param outputfile
+     */
     public TsakResponseWriter(String outputfile) {
         this.output_file_name = outputfile;
     }
-
+    
     @Override
     public void write(Object twitterResponseData, String parsedCommand,
             String outputFile) {
@@ -52,6 +68,12 @@ public class TsakResponseWriter implements DataWriter {
     }
 
     @SuppressWarnings("unchecked")
+    /**
+     * writes the response to the output text file.
+     * 
+     * @param twitterResponseData
+     * @param parsedCommand
+     */
     public void write(Object twitterResponseData, String parsedCommand) {
         getWriterHandle();
         if (parsedCommand.equals("dumpFollowerIDs")
@@ -124,13 +146,22 @@ public class TsakResponseWriter implements DataWriter {
         }
         closeWriterHandler();
     }
-
+    /**
+     * closes writer if its not closed yet.
+     * 
+     */
     public void closeWriterHandler() {
         if (this.writer != null) {
             this.writer.close();
         }
     }
-
+    
+    /**
+     * appends the specified string line to the end of the output text file.
+     * 
+     * @param line
+     * @param newline
+     */
     public void writeLine(String line, boolean newline) {
         if (newline) {
             this.writer.println(line);
@@ -139,32 +170,52 @@ public class TsakResponseWriter implements DataWriter {
         }
         this.writer.flush();
     }
-
+    /**
+     * appends the specified trends to the end of the output text file.
+     * 
+     * @param trends
+     */
     public void trendsJsonWriter(Trends trends) {
         for (Trend trend : trends.getTrends()) {
-            String trend_json = new Gson().toJson(trend);
-            writeLine(trend_json, true);
+            String jsonTrends = new Gson().toJson(trend);
+            writeLine(jsonTrends, true);
         }
     }
-
+    /**
+     * appends the specified locations to the end of the output text file.
+     * 
+     * @param locations
+     */
     public void responseLocationsListJsonWriter(ResponseList<Location> locations) {
         for (Location location : locations) {
-            String location_json = new Gson().toJson(location);
-            writeLine(location_json, true);
+            String jsonLocation = new Gson().toJson(location);
+            writeLine(jsonLocation, true);
         }
     }
-
+    /**
+     * appends the specified geoPlaces to the end of the output text file.
+     * 
+     * @param places
+     */
     public void geoResponsePlacesListJsonWriter(ResponseList<Place> places) {
         for (Place place : places) {
             geoPlaceJsonWriter(place);
         }
     }
-
+    /**
+     * appends the specified geoPlaces to the end of the output text file.
+     * 
+     * @param place
+     */
     public void geoPlaceJsonWriter(Place place) {
         String placeInfo_json = new Gson().toJson(place);
         writeLine(placeInfo_json, true);
     }
-
+    /**
+     * appends the specified savedSearches to the end of the output text file.
+     * 
+     * @param savedsearches
+     */
     public void responseSavedSearchesJsonWriter(
             ResponseList<SavedSearch> savedsearches) {
         for (SavedSearch savedSearch : savedsearches) {
@@ -172,14 +223,22 @@ public class TsakResponseWriter implements DataWriter {
             writeLine(savedsearches_json, true);
         }
     }
-
+    /**
+     * appends the specified userLists to the end of the output text file.
+     * 
+     * @param userlists
+     */
     public void responseUserListsJsonWriter(ResponseList<UserList> userlists) {
         for (UserList list : userlists) {
             String ulist_json = new Gson().toJson(list);
             writeLine(ulist_json, true);
         }
     }
-
+    /**
+     * appends the specified relationship to the end of the output text file.
+     * 
+     * @param relation
+     */
     public void relationshipJsonWriter(Relationship relation) {
         String rel_json = new Gson().toJson(relation);
         writeLine(rel_json, true);
@@ -191,41 +250,61 @@ public class TsakResponseWriter implements DataWriter {
             writeLine(user_json, true);
         }
     }
-
-    public void statusListJsonWriter(List<Status> sList) {
-        for (Status status : sList) {
+    /**
+     * appends the specified status list to the end of the output text file.
+     * 
+     * @param statusList
+     */
+    public void statusListJsonWriter(List<Status> statusList) {
+        for (Status status : statusList) {
             String status_json = new Gson().toJson(status);
             writeLine(status_json, true);
         }
     }
-
-    public void statusListsJsonWriter(List<List<Status>> sLists) {
-        for (List<Status> sList : sLists) {
+    /**
+     * appends the specified list of status lists to the end of the output text file.
+     * 
+     * @param listOfStatusList
+     */
+    public void statusListsJsonWriter(List<List<Status>> listOfStatusList) {
+        for (List<Status> sList : listOfStatusList) {
             for (Status status : sList) {
                 String status_json = new Gson().toJson(status);
                 writeLine(status_json, true);
             }
         }
     }
-
-    public void responseListStatusJsonWriter(List<ResponseList<Status>> sLists) {
-        for (ResponseList<Status> sList : sLists) {
+    /**
+     * appends the specified responseList of statuses to the end of the output text file.
+     * 
+     * @param statusResponseList
+     */
+    public void responseListStatusJsonWriter(List<ResponseList<Status>> statusResponseList) {
+        for (ResponseList<Status> sList : statusResponseList) {
             for (Status status : sList) {
                 String status_json = new Gson().toJson(status);
                 writeLine(status_json, true);
             }
         }
     }
-
-    public void responselistUserJsonWriter(List<ResponseList<User>> sLists) {
-        for (ResponseList<User> users : sLists) {
+    /**
+     * appends the specified responseList of users to the end of the output text file.
+     * 
+     * @param userResponseList
+     */
+    public void responselistUserJsonWriter(List<ResponseList<User>> userResponseList) {
+        for (ResponseList<User> users : userResponseList) {
             for (User user : users) {
                 String status_json = new Gson().toJson(user);
                 writeLine(status_json, true);
             }
         }
     }
-
+    /**
+     * appends the specified responseList of friendship to the end of the output text file.
+     * 
+     * @param Friendships
+     */
     public void responselistFriendshipJsonWriter(
             List<ResponseList<Friendship>> Friendships) {
         for (ResponseList<Friendship> Friendship : Friendships) {
@@ -235,63 +314,98 @@ public class TsakResponseWriter implements DataWriter {
             }
         }
     }
-
+    /**
+     * appends the specified status to the end of the output text file.
+     * 
+     * @param status
+     */
     public void statusJsonWriter(Status status) {
-        String status_json = new Gson().toJson(status);
-        writeLine(status_json, true);
+        String jsonStatus = new Gson().toJson(status);
+        writeLine(jsonStatus, true);
     }
-
-    public void accountSettingsJsonWriter(AccountSettings account_settings) {
-        String settings_json = new Gson().toJson(account_settings);
-        writeLine(settings_json, true);
+    /**
+     * appends the specified accountSettings to the end of the output text file.
+     * 
+     * @param accountSettings
+     */
+    public void accountSettingsJsonWriter(AccountSettings accountSettings) {
+        String jsonSettings = new Gson().toJson(accountSettings);
+        writeLine(jsonSettings, true);
     }
-
+    /**
+     * appends the specified responseList of categories to the end of the output text file.
+     * 
+     * @param categories
+     */
     public void catListJsonWriter(ResponseList<Category> categories) {
         for (Category category : categories) {
-            String cat_json = new Gson().toJson(category);
-            writeLine(cat_json, true);
+            String jsonCats = new Gson().toJson(category);
+            writeLine(jsonCats, true);
         }
     }
-
+    /**
+     * appends the specified responseList of users to the end of the output text file.
+     * 
+     * @param users
+     */
     public void usersResponseListJsonWriter(ResponseList<User> users) {
         for (User user : users) {
-            String user_json = new Gson().toJson(user);
-            writeLine(user_json, true);
+            String userJson = new Gson().toJson(user);
+            writeLine(userJson, true);
         }
     }
-
+    /**
+     * appends the specified pagableResponseList of userList to the end of the output text file.
+     * 
+     * @param responseList
+     */
     public void pagableResponseListJsonWriter(
-            List<PagableResponseList<UserList>> mResponse) {
-        for (PagableResponseList<UserList> pResponse : mResponse) {
-            for (UserList ulist : pResponse) {
-                String ulist_json = new Gson().toJson(ulist);
-                writeLine(ulist_json, true);
+            List<PagableResponseList<UserList>> responseList) {
+        for (PagableResponseList<UserList> pResponse : responseList) {
+            for (UserList userList : pResponse) {
+                String jsonUserList = new Gson().toJson(userList);
+                writeLine(jsonUserList, true);
             }
         }
     }
-
+    /**
+     * appends the specified pagableResponseList of user to the end of the output text file.
+     * 
+     * @param usersList
+     */
     public void pagableResponseUsersJsonWriter(
             List<PagableResponseList<User>> usersList) {
         for (PagableResponseList<User> users : usersList) {
             for (User user : users) {
-                String user_json = new Gson().toJson(user);
-                writeLine(user_json, true);
+                String userJson = new Gson().toJson(user);
+                writeLine(userJson, true);
             }
         }
     }
-
-    public void IDsListJsonWriter(List<IDs> Ids_list) {
-        for (IDs ids : Ids_list) {
+    /**
+     * appends the specified list of IDs to the end of the output text file.
+     * 
+     * @param Ids_list
+     */
+    public void IDsListJsonWriter(List<IDs> iDsList) {
+        for (IDs ids : iDsList) {
             IDsOnlyJsonWriter(ids);
         }
     }
-
+    /**
+     * appends the specified IDs to the end of the output text file.
+     * 
+     * @param ids
+     */
     public void IDsOnlyJsonWriter(IDs ids) {
         JSONObject ids_json = new JSONObject();
         ids_json.accumulate("ids", ids.getIDs());
         writeLine(ids_json.toString(), true);
     }
-
+    /**
+     * creates writer handle.
+     * 
+     */
     public void getWriterHandle() {
         try {
             this.writer = new PrintStream(new FileOutputStream(new File(

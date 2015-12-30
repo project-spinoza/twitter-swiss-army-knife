@@ -1,5 +1,13 @@
 package org.projectspinoza.twitterswissarmyknife;
 
+/**
+ * TsakCommand
+ * contains definition for all of the available tsakCommands
+ * 
+ * @author org.projectspinoza
+ * @version v1.0
+ *
+ */
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 

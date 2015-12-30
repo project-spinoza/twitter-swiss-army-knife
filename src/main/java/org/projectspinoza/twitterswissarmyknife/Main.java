@@ -16,18 +16,22 @@ import twitter4j.TwitterException;
 import com.beust.jcommander.ParameterException;
 
 /**
+ * Main
+ * is the Driver class for the TwitterSwissArmyKnife utility, and contains various usage examples for this utility.
+ * 
  * @author org.projectspinoza
- * 
- * TwitterSwissArmyKnife
- * 
- * Is a very simple, straight forward, easy to use and flexible API. It
- * provides Method chaining, re-usability, flexibility and simplicity.
+ * @version v1.0
  *
  */
 public class Main {
     private static Logger log = LogManager.getRootLogger();
     private static ConsoleReader consoleReader;
-
+    /**
+     * contains the logic for executing commands.
+     * 
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         log.info("Initializing TSAK");
 
@@ -125,7 +129,13 @@ public class Main {
          * 
          */
     }
-
+    /**
+     * reads command from the console, and returns it after parsing.
+     * 
+     * @return String[] parsed command
+     * 
+     * @throws IOException
+     */
     public static String[] getCommandLineArguments() throws IOException {
         String commandLine = consoleReader.readLine("tsak>");
         if (commandLine.trim().equals("")) {
