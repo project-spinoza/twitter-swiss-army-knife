@@ -1,5 +1,5 @@
 # Twitter Swiss Army Knife
-  twitter-swiss-army-knife v1.0.0 releasing first stable version on <code>Mon Jan 11 2016</code>
+twitter-swiss-army-knife <code>v1.0.0</code> releasing first stable version on <code>Mon Jan 11 2016</code>
 
 <h2>How to build and Run</h2>
 <h4>Build</h4>
