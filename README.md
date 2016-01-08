@@ -26,14 +26,14 @@ Run either of the available TSAK commands.
 [JavaDoc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
 <h3>Commands</h3>
 
-<code> tsak dumpAccountSettings -limit 1 -o accountSettings.txt </code><br>
+<code> tsak dumpAccountSettings -o accountSettings.txt </code><br>
 <code> tsak dumpFollowerIDs -uname ScreenName -limit 1 -o followers.txt</code><br>
 <code> tsak dumpFollowerIDs -uid 101010111 -o followers.txt</code><br>
 <code> tsak dumpFriendIDs -uname ScreenName -limit 1 -o friends.txt</code><br>
 <code> tsak dumpFriendIDs -uid 01010101 -limit 1 -o friends.txt </code><br>
 <code> tsak dumpUserTimeLine -uname ScreenName -limit 1 -o timeline.txt</code><br>
 <code> tsak dumpUserTimeLine -uid 101010111 -limit 1 -o timeline.txt</code><br>
-<code> tsak dumpHomeTimeLine -limit 1 -o timeline.txt</code><br>
+<code> tsak dumpHomeTimeLine -o timeline.txt</code><br>
 <code> tsak dumpTweets -keywords "KEY words" -limit 1  -o tweets.txt</code><br>
 <code> tsak dumpOwnRetweets -o OwnRetweets.txt</code><br>
 <code> tsak dumpStatus -sid 01010101 -o Statuses.txt    </code><br>
