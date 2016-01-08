@@ -1,27 +1,41 @@
 # Twitter Swiss Army Knife
   twitter-swiss-army-knife
 
-<h3>Setup:</h3>
+<h2>How to build and Run</h2>
+<h4>1. Build</h4>
+<ul><li>Build with maven:  <code>mvn clean package</code></li></ul>
+
+<h4>Setup</h4>
 <ul>
-<li>Build with maven:  <code>mvn clean package</code></li>
-<li>Create <code>TSAK_CONF</code> env variable pointing to a readable directory.</li>
-<li>Copy <code>tsak.properties</code> file to the directory pointed by <code>TSAK_CONF</code>.</li>
-<li>Edit <code>tsak.properties</code> file and fill up with required Twitter keys.</li>
+<li>create twitter App [setup](http://openspinoza.org/tsak/setup)</li>
+<li>
+edit tsak.properties file and enter your keys <br>
+<cod>accessToken=<enter your access token here></code><br>
+<code>consumerSecret=<enter your consumer secret key here></code><br>
+<code>consumerKey=<enter your consumer key here></code><br>
+<codeaccessSecret=<enter your accessSecret key here></code><br>
+</li>
+<li>create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file</li>
+</ul>
+<h4>Run</h4>
+<ul>
 <li>Inside project root directory, run one of the following startup file depending on the type of plateform:<br> 
-<code>startup.sh</code> <b>Linux</b><br>
+<code>bash startup.sh</code> <b>Linux</b><br>
 <code>startup.bat</code> <b>Windows</b>
 </li>
-<li>For detailed setup visit: http://openspinoza.org/tsak/setup</li>
 </ul>
 
-Run either of the available TSAK commands.
+<br>Run either of the available TSAK commands.</b>
 
 <h5>Note:</h5> 
 <ul>
-<li>New option <code>-limit</code> added which specifies the number of api calls to be consumed for the commands which can consume  more than one api call, default <code>-limit 1</code></li>
+<li>For detailed setup visit: http://openspinoza.org/tsak/setup</code></li>
 <li>For detail description on available commands refer to: http://openspinoza.org/tsak/commands</li>
 <li>You need to have twitter's access key, token key to run TSAK, for details refer to <a href="https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites">Setup</a> page</li>
 </ul>
+
+
+
 <h5>API Documentation</h5>
 [JavaDoc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
 <h3>Commands</h3>
