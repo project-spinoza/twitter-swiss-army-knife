@@ -84,3 +84,7 @@ Run either of the available TSAK commands.</b>
 <code> tsak dumpUserListMembers -lid 02020202 -limit 1 -o output.txt</code><br>
 <code> tsak dumpUserListSubscriptions -uname screenName -limit 1 -o subscription.txt</code><br>
 <code> tsak streamStatuses -keywords "iPhone" -store true -o streamsOut.txt</code>
+
+## License
+The code is licensed under the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
