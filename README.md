@@ -1,5 +1,5 @@
 # Twitter Swiss Army Knife
-  twitter-swiss-army-knife
+  twitter-swiss-army-knife v1.0.0 releasing first stable version on <code>Mon Jan 11 2016</code>
 
 <h2>How to build and Run</h2>
 <h4>Build</h4>
@@ -35,7 +35,7 @@ Run either of the available TSAK commands.</b>
 </ul>
 
 
-<h5>API Documentation</h5>
+<h4>API Documentation</h4>
 [JavaDoc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
 <h3>Commands</h3>
 
