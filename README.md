@@ -7,7 +7,7 @@
 
 <h4>Setup</h4>
 <ul>
-<li>create twitter App <a href="http://openspinoza.org/tsak/setup">setup</a></li>
+<li>create twitter App [setup](http://openspinoza.org/tsak/setup)</li>
 <li>
 edit tsak.properties file and enter your keys <br>
 <code>accessToken=[enter your access token here]</code><br>
@@ -25,15 +25,14 @@ edit tsak.properties file and enter your keys <br>
 </li>
 </ul>
 
-<br>Run either of the available TSAK commands.</b>
+Run either of the available TSAK commands.</b>
 
-<h5>Note:</h5> 
+<h4>Note:</h4> 
 <ul>
 <li>For detailed setup visit: http://openspinoza.org/tsak/setup</code></li>
 <li>For detail description on available commands refer to: http://openspinoza.org/tsak/commands</li>
-<li>You need to have twitter's access key, token key to run TSAK, for details refer to <a href="https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites">Setup</a> page</li>
+<li>You need to have twitter's access key, token key to run TSAK, for details refer to  [Setup](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites) page</li>
 </ul>
-
 
 
 <h5>API Documentation</h5>
