@@ -39,6 +39,13 @@ import org.projectspinoza.twitterswissarmyknife.command.CommandDumpSavedSearches
 import org.projectspinoza.twitterswissarmyknife.command.CommandDumpSimilarPlaces;
 import org.projectspinoza.twitterswissarmyknife.command.CommandDumpStatus;
 import org.projectspinoza.twitterswissarmyknife.command.CommandDumpSuggestedUserCats;
+import org.projectspinoza.twitterswissarmyknife.command.CommandDumpUserListMembers;
+import org.projectspinoza.twitterswissarmyknife.command.CommandDumpUserListMemberships;
+import org.projectspinoza.twitterswissarmyknife.command.CommandDumpUserListSubscribers;
+import org.projectspinoza.twitterswissarmyknife.command.CommandDumpUserListSubscriptions;
+import org.projectspinoza.twitterswissarmyknife.command.CommandDumpUserSuggestions;
+import org.projectspinoza.twitterswissarmyknife.command.CommandSearchUsers;
+import org.projectspinoza.twitterswissarmyknife.command.CommandShowFriendShip;
 import org.projectspinoza.twitterswissarmyknife.util.TsakResponse;
 
 import twitter4j.AccountSettings;
@@ -53,6 +60,7 @@ import twitter4j.Place;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.RateLimitStatus;
+import twitter4j.Relationship;
 import twitter4j.ResponseList;
 import twitter4j.SavedSearch;
 import twitter4j.Status;
@@ -60,30 +68,33 @@ import twitter4j.Trends;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
+import twitter4j.UserList;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ Paging.class, Query.class, QueryResult.class, GeoLocation.class, GeoQuery.class, CommandDumpSimilarPlaces.class, BaseCommand.class })
 public class TsakUnitTest {
+
     long testUserId = 101010111;
     long testSlugId = 101010111;
     long testListId = 101010111;
     long testStatusId = 1;
-    
-    Double testLongitude = 0.0001;
-    Double testLatitude = 0.0001;
-    
-    int testLimit = 1;
-    int testWoeId = 1;
-    
+
     String testUserName = "bit-whacker";
     String testOutput = "testOutput.txt";
     String testPlaceId = "5a110d312052166f";
     String testSlug = "sports";
     String testPlaceName = "New York";
     String testKeywords = "Cofee";
-    
-    
+    String testSource = "test source";
+    String testTarget = "test target";
+
+    Double testLongitude = 74.0059;
+    Double testLatitude = 40.7127;
+
+    int testWoeId = 1;
+    int testLimit = 1;
+
     @Mock
     Twitter twitter;
     IDs ids;
@@ -105,6 +116,8 @@ public class TsakUnitTest {
     ResponseList<SavedSearch> savedSearchResponseList;
     Status status;
     ResponseList<Category> categoryResponseList;
+    PagableResponseList<UserList> userPRLists;
+    Relationship relationship;
 
     @SuppressWarnings("unchecked")
     @Before
@@ -123,17 +136,20 @@ public class TsakUnitTest {
         userList = Mockito.mock(List.class);
         userRList = Mockito.mock(ResponseList.class);
         userPagableList = Mockito.mock(PagableResponseList.class);
+        userPRLists = Mockito.mock(PagableResponseList.class);
         place = Mockito.mock(Place.class);
         page = Mockito.mock(Paging.class);
         trends = Mockito.mock(Trends.class);
         status = Mockito.mock(Status.class);
         savedSearchResponseList = Mockito.mock(ResponseList.class);
         categoryResponseList = Mockito.mock(ResponseList.class);
+        relationship = Mockito.mock(Relationship.class);
         PowerMockito.whenNew(GeoLocation.class).withArguments(testLatitude, testLongitude).thenReturn(geoLocation);
     }
 
     @Test
     public void testCase_1() throws TwitterException {
+
         CommandDumpFollowerIDs testCommand = new CommandDumpFollowerIDs();
         testCommand.setScreenName(testUserName);
         testCommand.setOutputFile(testOutput);
@@ -152,10 +168,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_2() throws TwitterException {
+
         CommandDumpAccountSettings testCommand = new CommandDumpAccountSettings();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -172,10 +190,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_3() throws TwitterException {
+
         CommandDumpAvailableTrends testCommand = new CommandDumpAvailableTrends();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -192,10 +212,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_4() throws TwitterException {
+
         CommandDumpBlockList testCommand = new CommandDumpBlockList();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -212,6 +234,7 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
@@ -221,6 +244,7 @@ public class TsakUnitTest {
 
     @Test
     public void testCase_6() throws TwitterException {
+
         CommandDumpFavourites testCommand = new CommandDumpFavourites();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -237,10 +261,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_7() throws TwitterException {
+
         List<PagableResponseList<User>> followersList = new ArrayList<PagableResponseList<User>>();
         followersList.add(userPagableList);
 
@@ -263,10 +289,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_8() throws TwitterException {
+
         List<IDs> friendsIDsCollection = new ArrayList<IDs>();
         friendsIDsCollection.add(ids);
 
@@ -289,10 +317,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_9() throws TwitterException {
+
         List<PagableResponseList<User>> friendList = new ArrayList<PagableResponseList<User>>();
         friendList.add(userPagableList);
 
@@ -315,10 +345,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_10() throws TwitterException {
+
         CommandDumpGeoDetails testCommand = new CommandDumpGeoDetails();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -336,10 +368,12 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     @Test
     public void testCase_11() throws TwitterException {
+
         CommandDumpHomeTimeLine testCommand = new CommandDumpHomeTimeLine();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -356,11 +390,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpIncomingFriendships */
     @Test
     public void testCase_12() throws TwitterException {
+
         List<IDs> IncomingFriendshipsCollection = new ArrayList<IDs>();
         IncomingFriendshipsCollection.add(ids);
 
@@ -382,6 +418,7 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpListStatuses */
@@ -393,6 +430,7 @@ public class TsakUnitTest {
     /* CommandDumpMemberSuggestions */
     @Test
     public void testCase_14() throws Exception {
+
         CommandDumpMemberSuggestions testCommand = new CommandDumpMemberSuggestions();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -410,11 +448,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpMentionsTimeLine */
     @Test
     public void testCase_15() throws Exception {
+
         CommandDumpMentionsTimeLine testCommand = new CommandDumpMentionsTimeLine();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -431,11 +471,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpMentionsTimeLine */
     @Test
     public void testCase_16() throws Exception {
+
         List<IDs> mutesIDsCollection = new ArrayList<IDs>();
         mutesIDsCollection.add(ids);
 
@@ -456,11 +498,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpMutesIDs */
     @Test
     public void testCase_17() throws Exception {
+
         List<PagableResponseList<User>> MutesListCollection = new ArrayList<PagableResponseList<User>>();
         MutesListCollection.add(userPagableList);
 
@@ -481,11 +525,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpOutgoingFriendships */
     @Test
     public void testCase_20() throws Exception {
+
         List<IDs> outGoingFriendshipsCollection = new ArrayList<IDs>();
         outGoingFriendshipsCollection.add(ids);
 
@@ -506,11 +552,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpOwnRetweets */
     @Test
     public void testCase_21() throws Exception {
+
         CommandDumpOwnRetweets testCommand = new CommandDumpOwnRetweets();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -527,11 +575,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpPlaceTrends */
     @Test
     public void testCase_22() throws Exception {
+
         CommandDumpPlaceTrends testCommand = new CommandDumpPlaceTrends();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -549,11 +599,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpRetweeters */
     @Test
     public void testCase_23() throws Exception {
+
         List<IDs> retweetersIDs = new ArrayList<IDs>();
         retweetersIDs.add(ids);
 
@@ -574,11 +626,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpSavedSearches */
     @Test
     public void testCase_24() throws Exception {
+
         CommandDumpSavedSearches testCommand = new CommandDumpSavedSearches();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -595,6 +649,7 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
      /* CommandDumpSimilarPlaces */
@@ -602,10 +657,10 @@ public class TsakUnitTest {
      public void testCase_25() throws Exception {
     
      }
-     
     /* CommandDumpStatus */
     @Test
     public void testCase_26() throws Exception {
+
         CommandDumpStatus testCommand = new CommandDumpStatus();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -623,11 +678,13 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpSuggestedUserCats */
     @Test
     public void testCase_27() throws Exception {
+
         CommandDumpSuggestedUserCats testCommand = new CommandDumpSuggestedUserCats();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -644,16 +701,19 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 
     /* CommandDumpTweets */
      @Test
      public void testCase_28() throws Exception {
-   
+    
      }
+     
     /* CommandDumpSuggestedUserCats */
     @Test
     public void testCase_29() throws Exception {
+
         CommandDumpSuggestedUserCats testCommand = new CommandDumpSuggestedUserCats();
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
@@ -670,5 +730,232 @@ public class TsakUnitTest {
         assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandDumpTweets */
+    @Test
+    public void testCase_30() throws Exception {
+
+    }
+
+    /* CommandDumpUserListMembers */
+    @Test
+    public void testCase_31() throws Exception {
+        List<PagableResponseList<User>> ListMembersCollection = new ArrayList<PagableResponseList<User>>();
+        ListMembersCollection.add(userPagableList);
+        CommandDumpUserListMembers testCommand = new CommandDumpUserListMembers();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setLimit(testLimit);
+        testCommand.setListId(testListId);
+
+        TsakResponse expected = new TsakResponse(0, ListMembersCollection);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.getUserListMembers(testListId, -1)).thenReturn(userPagableList);
+        Mockito.when(userPagableList.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandDumpUserListMemberships */
+    @Test
+    public void testCase_32() throws Exception {
+        List<PagableResponseList<UserList>> listMemberships = new ArrayList<PagableResponseList<UserList>>();
+        listMemberships.add(userPRLists);
+        CommandDumpUserListMemberships testCommand = new CommandDumpUserListMemberships();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setLimit(testLimit);
+        testCommand.setUserId(testUserId);
+
+        TsakResponse expected = new TsakResponse(0, listMemberships);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.getUserListMemberships(testListId, -1)).thenReturn(userPRLists);
+        Mockito.when(userPRLists.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandDumpUserListSubscribers */
+    @Test
+    public void testCase_33() throws Exception {
+        List<PagableResponseList<User>> listSubscribers = new ArrayList<PagableResponseList<User>>();
+        listSubscribers.add(userPagableList);
+        CommandDumpUserListSubscribers testCommand = new CommandDumpUserListSubscribers();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setListId(testListId);
+        testCommand.setLimit(testLimit);
+
+        TsakResponse expected = new TsakResponse(0, listSubscribers);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.getUserListSubscribers(testListId, -1)).thenReturn(userPagableList);
+        Mockito.when(userPagableList.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandDumpUserListSubscriptions */
+    @Test
+    public void testCase_34() throws Exception {
+        List<PagableResponseList<UserList>> listSubscriptions = new ArrayList<PagableResponseList<UserList>>();
+        listSubscriptions.add(userPRLists);
+        CommandDumpUserListSubscriptions testCommand = new CommandDumpUserListSubscriptions();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setScreenName(testUserName);
+        testCommand.setLimit(testLimit);
+
+        TsakResponse expected = new TsakResponse(0, listSubscriptions);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.getUserListSubscriptions(testUserName, -1)).thenReturn(userPRLists);
+        Mockito.when(userPRLists.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandDumpUserSuggestions */
+    @Test
+    public void testCase_35() throws Exception {
+
+        CommandDumpUserSuggestions testCommand = new CommandDumpUserSuggestions();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setSlug(testSlug);
+
+        TsakResponse expected = new TsakResponse(0, userPagableList);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.getUserSuggestions(testSlug)).thenReturn(userPagableList);
+        Mockito.when(userPagableList.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandDumpUserSuggestions */
+    @Test
+    public void testCase_36() throws Exception {
+
+        CommandDumpUserSuggestions testCommand = new CommandDumpUserSuggestions();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setSlug(testSlug);
+
+        TsakResponse expected = new TsakResponse(0, userPagableList);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.getUserSuggestions(testSlug)).thenReturn(userPagableList);
+        Mockito.when(userPagableList.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandDumpUserTimeLine */
+    @Test
+    public void testCase_37() throws Exception {
+
+    }
+
+    /* CommandLookupFriendShip */
+    @Test
+    public void testCase_38() throws Exception {
+
+    }
+
+    /* CommandSearchPlace */
+    @Test
+    public void testCase_39() throws Exception {
+     
+    }
+
+    /* CommandSearchUsers */
+    @Test
+    public void testCase40() throws Exception {
+        List<ResponseList<User>> usersCollection = new ArrayList<ResponseList<User>>();
+        usersCollection.add(userRList);
+        CommandSearchUsers testCommand = new CommandSearchUsers();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setKeywords(testKeywords);
+
+        TsakResponse expected = new TsakResponse(0, usersCollection);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.searchUsers(testKeywords, 1)).thenReturn(userRList);
+        Mockito.when(userRList.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
+    }
+
+    /* CommandShowFriendShip */
+    @Test
+    public void testCase41() throws Exception {
+
+        CommandShowFriendShip testCommand = new CommandShowFriendShip();
+        testCommand.setHelp(true);
+        testCommand.setOutputFile(testOutput);
+        testCommand.setSource(testSource);
+        testCommand.setTarget(testTarget);
+
+        TsakResponse expected = new TsakResponse(0, relationship);
+        expected.setCommandDetails(testCommand.toString());
+
+        Mockito.when(twitter.showFriendship(testSource, testTarget)).thenReturn(relationship);
+        Mockito.when(relationship.getRateLimitStatus()).thenReturn(rateLimitStatus);
+        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
+
+        TsakResponse result = testCommand.execute(twitter);
+
+        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
+        assertEquals(expected.getResponseData(), result.getResponseData());
+        assertEquals(expected.getCommandDetails(), result.getCommandDetails());
+
     }
 }
