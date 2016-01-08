@@ -83,7 +83,9 @@ Run either of the available TSAK commands.</b>
 <code> tsak dumpUserListSubscribers -lid 02020202 -limit 1 -o subscribers.txt</code><br>
 <code> tsak dumpUserListMembers -lid 02020202 -limit 1 -o output.txt</code><br>
 <code> tsak dumpUserListSubscriptions -uname screenName -limit 1 -o subscription.txt</code><br>
-<code> tsak streamStatuses -keywords "iPhone" -store true -o streamsOut.txt</code>
+<code> tsak streamStatuses -keywords "iPhone"</code><br>
+<b>Note:</b> use option <code>-store</code> if you want to store streaming data to the output text file e.g. <br>
+<code> tsak streamStatuses -keywords "iPhone" -store -o streamsOut.txt</code>
 
 ## License
 The code is licensed under the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
