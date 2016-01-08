@@ -2,18 +2,18 @@
   twitter-swiss-army-knife
 
 <h2>How to build and Run</h2>
-<h4>1. Build</h4>
+<h4>Build</h4>
 <ul><li>Build with maven:  <code>mvn clean package</code></li></ul>
 
 <h4>Setup</h4>
 <ul>
-<li>create twitter App [setup](http://openspinoza.org/tsak/setup)</li>
+<li>create twitter App <a href="http://openspinoza.org/tsak/setup">setup</a></li>
 <li>
 edit tsak.properties file and enter your keys <br>
-<cod>accessToken=<enter your access token here></code><br>
-<code>consumerSecret=<enter your consumer secret key here></code><br>
-<code>consumerKey=<enter your consumer key here></code><br>
-<codeaccessSecret=<enter your accessSecret key here></code><br>
+<code>accessToken=[enter your access token here]</code><br>
+<code>consumerSecret=[enter your consumer secret key here]</code><br>
+<code>consumerKey=[enter your consumer key here]</code><br>
+<code>accessSecret=[enter your accessSecret key here]</code><br>
 </li>
 <li>create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file</li>
 </ul>
