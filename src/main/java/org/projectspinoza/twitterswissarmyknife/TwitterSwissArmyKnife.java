@@ -264,10 +264,18 @@ public class TwitterSwissArmyKnife {
             InputStream propInstream = new FileInputStream(propConfFile);
             prop.load(propInstream);
             propInstream.close();
-            tsakCommand.setConsumerKey(prop.getProperty("consumerKey").trim());
-            tsakCommand.setConsumerSecret(prop.getProperty("consumerSecret").trim());
-            tsakCommand.setAccessToken(prop.getProperty("accessToken").trim());
-            tsakCommand.setAccessSecret(prop.getProperty("accessSecret").trim());
+            String consumerKey = prop.getProperty("consumerKey");
+            String consumerSecret = prop.getProperty("consumerSecret");
+            String accessToken = prop.getProperty("accessToken").trim();
+            String accessSecret = prop.getProperty("accessSecret").trim();
+            if(consumerKey == null || consumerSecret == null || accessToken == null || accessSecret == null){
+                log.error("some or all keys are missing!");
+                return false;
+            } 
+            tsakCommand.setConsumerKey(consumerKey.trim());
+            tsakCommand.setConsumerSecret(consumerSecret.trim());
+            tsakCommand.setAccessToken(accessToken.trim());
+            tsakCommand.setAccessSecret(accessSecret.trim());
         }
         return true;
     }
