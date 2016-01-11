@@ -153,17 +153,14 @@ public class TwitterSwissArmyKnife {
      */
     public void executeDumpCommand(BaseCommand baseCommand) throws TwitterException {
         if (!isAuthorized()) {
-            authorizeUser();
+            log.error("Please specify credentials through command line or create evn TSAK_CONF pointing to tsak.properties file");
+            return;
         }
-        if (isAuthorized()) {
-            tsakResponse = baseCommand.execute(getTwitterInstance());
-            if (tsakResponse != null) {
-                if(!(baseCommand instanceof CommandStreamStatuses)){
-                    showRateLimitStatus(tsakResponse.getRemApiLimits());
-                }
+        tsakResponse = baseCommand.execute(getTwitterInstance());
+        if (tsakResponse != null) {
+            if(!(baseCommand instanceof CommandStreamStatuses)){
+                showRateLimitStatus(tsakResponse.getRemApiLimits());
             }
-        } else {
-            log.error("User not authorized!");
         }
     }
 
@@ -196,7 +193,7 @@ public class TwitterSwissArmyKnife {
             return tsakInstance;
         }
         if (!isAuthorized()) {
-            setConfigurationBuilder(rootCommander);
+            authorizeUser(rootCommander);
         }
         executeDumpCommand(baseCommand);
         return tsakInstance;
@@ -207,22 +204,15 @@ public class TwitterSwissArmyKnife {
      * 
      * @throws TwitterException
      */
-    private void authorizeUser() throws TwitterException {
-        twitter = new TwitterFactory(getConfigurationBuilder().build()).getInstance();
-        twitter.verifyCredentials();
-        authorize = true;
-    }
-
-    /**
-     * Sets twitter configuration builder
-     * 
-     * @param rootCommander
-     * @throws IOException
-     */
-    private void setConfigurationBuilder(JCommander rootCommander) throws IOException {
-        if (!setCredentials(rootCommander)) {
-            log.error("Credentials not provided!");
-            authorize = false;
+    private void authorizeUser(JCommander rootCommander) throws TwitterException {
+        try{
+            if (!setCredentials(rootCommander)) {
+                log.error("Credentials not provided!");
+                authorize = false;
+                return;
+            }
+        }catch(IOException ioex){
+            log.error("twitter credentials not provided!!!");
             return;
         }
         configurationBuilder = new ConfigurationBuilder();
@@ -231,6 +221,10 @@ public class TwitterSwissArmyKnife {
         .setOAuthConsumerSecret(tsakCommand.getConsumerSecret())
         .setOAuthAccessToken(tsakCommand.getAccessToken())
         .setOAuthAccessTokenSecret(tsakCommand.getAccessSecret());
+        
+        twitter = new TwitterFactory(getConfigurationBuilder().build()).getInstance();
+        twitter.verifyCredentials();
+        authorize = true;
     }
 
     /**
