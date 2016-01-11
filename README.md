@@ -88,7 +88,7 @@ use option <code>--help</code> with tsak command to display command options e.g.
 <code> tsak dumpUserListSubscribers -lid 02020202 -limit 1 -o listSubscribers.txt</code><br>
 <code> tsak dumpUserListMembers -lid 02020202 -limit 1 -o listMembers.txt</code><br>
 <code> tsak dumpUserListSubscriptions -uname screenName -limit 1 -o listSubscription.txt</code><br>
-<code> tsak streamStatuses -keywords "iPhone" -store -o streamsOut.txt</code>
+<code> tsak streamStatuses -keywords "iPhone" -show -o streamsOut.txt</code>
 
 
 ## License
