@@ -153,7 +153,7 @@ public class TwitterSwissArmyKnife {
      */
     public void executeDumpCommand(BaseCommand baseCommand) throws TwitterException {
         if (!isAuthorized()) {
-            log.error("Please specify credentials through command line or create evn TSAK_CONF pointing to tsak.properties file");
+            log.error("Please specify credentials through command line or create env <TSAK_CONF> pointing to tsak.properties file directory");
             return;
         }
         tsakResponse = baseCommand.execute(getTwitterInstance());
