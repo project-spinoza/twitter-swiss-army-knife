@@ -266,8 +266,8 @@ public class TwitterSwissArmyKnife {
             propInstream.close();
             String consumerKey = prop.getProperty("consumerKey");
             String consumerSecret = prop.getProperty("consumerSecret");
-            String accessToken = prop.getProperty("accessToken").trim();
-            String accessSecret = prop.getProperty("accessSecret").trim();
+            String accessToken = prop.getProperty("accessToken");
+            String accessSecret = prop.getProperty("accessSecret");
             if(consumerKey == null || consumerSecret == null || accessToken == null || accessSecret == null){
                 log.error("some or all keys are missing!");
                 return false;
