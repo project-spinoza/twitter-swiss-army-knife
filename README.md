@@ -44,15 +44,15 @@ use option <code>--help</code> with tsak command to display command options e.g.
 <h3>Commands</h3>
 
 <code> tsak dumpAccountSettings -o accountSettings.txt </code><br>
-<code> tsak dumpFollowerIDs -uname ScreenName -limit 1 -o followers.txt</code><br>
-<code> tsak dumpFollowerIDs -uid 101010111 -o followers.txt</code><br>
-<code> tsak dumpFriendIDs -uname ScreenName -limit 1 -o friends.txt</code><br>
-<code> tsak dumpFriendIDs -uid 01010101 -limit 1 -o friends.txt </code><br>
-<code> tsak dumpUserTimeLine -uname ScreenName -limit 1 -o timeline.txt</code><br>
-<code> tsak dumpUserTimeLine -uid 101010111 -limit 1 -o timeline.txt</code><br>
-<code> tsak dumpHomeTimeLine -o timeline.txt</code><br>
+<code> tsak dumpFollowerIDs -uname ScreenName -limit 1 -o followerIDs.txt</code><br>
+<code> tsak dumpFollowerIDs -uid 101010111 -o followerIDs.txt</code><br>
+<code> tsak dumpFriendIDs -uname ScreenName -limit 1 -o friendIDs.txt</code><br>
+<code> tsak dumpFriendIDs -uid 01010101 -limit 1 -o friendIDs.txt </code><br>
+<code> tsak dumpUserTimeLine -uname ScreenName -limit 1 -o userTimeLine.txt</code><br>
+<code> tsak dumpUserTimeLine -uid 101010111 -limit 1 -o userTimeLine.txt</code><br>
+<code> tsak dumpHomeTimeLine -o homeTimeLine.txt</code><br>
 <code> tsak dumpTweets -keywords "KEY words" -limit 1  -o tweets.txt</code><br>
-<code> tsak dumpOwnRetweets -o OwnRetweets.txt</code><br>
+<code> tsak dumpOwnRetweets -o ownRetweets.txt</code><br>
 <code> tsak dumpStatus -sid 01010101 -o statuses.txt    </code><br>
 <code> tsak dumpRetweeters -sid 01010101 -o retweeters.txt</code><br>
 <code> tsak dumpMentionsTimeLine -o mentionTimeline.txt</code><br>
@@ -60,10 +60,10 @@ use option <code>--help</code> with tsak command to display command options e.g.
 <code> tsak dumpBlockList -o blocklists.txt</code><br>
 <code> tsak searchUsers -keywords "Key Word" -o users.txt</code><br>
 <code> tsak showFriendShip -suser ScreenName -tuser ScreenName -o friendship.txt</code><br>
-<code> tsak dumpFriendsList -uname screenname -limit 1 -o friendlist.txt</code><br>
-<code> tsak dumpFriendsList -uid 01010101 -limit 1 -o friendlist.txt</code><br>
-<code> tsak dumpFollowersList -uname screenname -limit 1 -o followers.txt</code><br>
-<code> tsak dumpFollowersList -uid 010101 -limit 1 -o followers.txt</code><br>
+<code> tsak dumpFriendsList -uname screenname -limit 1 -o friendsList.txt</code><br>
+<code> tsak dumpFriendsList -uid 01010101 -limit 1 -o friendsList.txt</code><br>
+<code> tsak dumpFollowersList -uname screenname -limit 1 -o followersList.txt</code><br>
+<code> tsak dumpFollowersList -uid 010101 -limit 1 -o followersList.txt</code><br>
 <code> tsak dumpFavourites -o favourites.txt</code><br>
 <code> tsak dumpSugeestedUserCats -o catagories.txt</code><br>
 <code> tsak dumpUserSuggestions -slug family -o userSuggestions.txt</code><br>
