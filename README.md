@@ -28,7 +28,7 @@ edit tsak.properties file and enter your keys <br>
 Run either of the available TSAK commands.</b>
 
 <h4>Help</h4>
-use option <code>--help</code> with the command name to display command options e.g.<br>
+use option <code>--help</code> with tsak command to display command options e.g.<br>
 <code>tsak dumpFollowerIDs --help</code>
 <h4>Note</h4> 
 <ul>
