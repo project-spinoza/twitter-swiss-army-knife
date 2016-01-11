@@ -79,8 +79,8 @@ use option <code>--help</code> with tsak command to display command options e.g.
 <code> tsak dumpGeoDetails -pid 00685eca27fbd26b -o ginfo.txt</code><br>
 <code> tsak dumpSimilarPlaces -lat 51.5072 -long 0.1275 -pname london -o similarPlaces.txt</code><br>
 <code> tsak searchPlace -lat 51.5072 -long 0.1275 -o place.txt</code><br>
-<code> tsak dumpAvailableTrends -o output.txt</code><br>
-<code> tsak dumpPlaceTrends -woeid 010101 -o availableTrends.txt</code><br>
+<code> tsak dumpAvailableTrends -o availableTrends.txt</code><br>
+<code> tsak dumpPlaceTrends -woeid 010101 -o placeTrends.txt</code><br>
 <code> tsak dumpClosestTrends -lat 0.0 -long 0.0 -o closestTrends.txt</code><br>
 <code> tsak dumpMutesIDs -limit 1 -o mutes.txt</code><br>
 <code> tsak dumpUserListMemberships -uname screenName -limit 1 -o listMemberships.txt</code><br>
