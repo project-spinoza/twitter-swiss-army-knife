@@ -3,7 +3,8 @@ twitter-swiss-army-knife <code>v1.0.0</code> releasing first stable version on <
 
 <h2>How to build and Run</h2>
 <h4>Build</h4>
-<ul><li>Build with maven by runing the following command in project's root directory: 
+<b>Build with maven</b>
+<ul><li>run the following command in project's root directory:<br>
 <code>mvn clean package</code></li></ul>
 
 <h4>Setup</h4>
