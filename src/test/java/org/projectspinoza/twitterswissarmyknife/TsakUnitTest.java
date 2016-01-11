@@ -200,19 +200,15 @@ public class TsakUnitTest {
         testCommand.setHelp(true);
         testCommand.setOutputFile(testOutput);
 
-        TsakResponse expected = new TsakResponse(0, locationsList);
+        TsakResponse expected = new TsakResponse(-1, locationsList);
         expected.setCommandDetails(testCommand.toString());
 
         Mockito.when(twitter.getAvailableTrends()).thenReturn(locationsList);
-        Mockito.when(locationsList.getRateLimitStatus()).thenReturn(rateLimitStatus);
-        Mockito.when(rateLimitStatus.getRemaining()).thenReturn(0);
 
         TsakResponse result = testCommand.execute(twitter);
 
-        assertEquals(expected.getRemApiLimits(), result.getRemApiLimits());
         assertEquals(expected.getResponseData(), result.getResponseData());
         assertEquals(expected.getCommandDetails(), result.getCommandDetails());
-
     }
 
     @Test

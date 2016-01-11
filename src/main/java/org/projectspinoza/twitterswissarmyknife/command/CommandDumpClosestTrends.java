@@ -40,10 +40,8 @@ public class CommandDumpClosestTrends extends BaseCommand {
 
     @Override
     public TsakResponse execute(Twitter twitter) throws TwitterException {
-        ResponseList<Location> closestTrends = twitter
-                .getClosestTrends(new GeoLocation(this.latitude, this.longitude));
-        int remApiLimits = closestTrends.getRateLimitStatus().getRemaining();
-        TsakResponse tsakResponse = new TsakResponse(remApiLimits, closestTrends);
+        ResponseList<Location> closestTrends = twitter.getClosestTrends(new GeoLocation(this.latitude, this.longitude));
+        TsakResponse tsakResponse = new TsakResponse(-1, closestTrends);
         tsakResponse.setCommandDetails(this.toString());
         return tsakResponse;
     }

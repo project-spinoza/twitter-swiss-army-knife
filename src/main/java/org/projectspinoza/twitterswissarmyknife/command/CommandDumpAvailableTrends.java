@@ -19,8 +19,7 @@ public class CommandDumpAvailableTrends extends BaseCommand {
     @Override
     public TsakResponse execute(Twitter twitter) throws TwitterException {
         ResponseList<Location> locations = twitter.getAvailableTrends();
-        int remApiLimits = locations.getRateLimitStatus().getRemaining();
-        TsakResponse tsakResponse = new TsakResponse(remApiLimits, locations);
+        TsakResponse tsakResponse = new TsakResponse(-1, locations);
         tsakResponse.setCommandDetails(this.toString());
         return tsakResponse;
     }
