@@ -3,9 +3,11 @@ package org.projectspinoza.twitterswissarmyknife.streaming;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 
-import jline.internal.Log;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -19,12 +21,13 @@ import twitter4j.StatusListener;
  *
  */
 public class TwitterStatusStreams implements StatusListener {
-
-    private boolean storeStreamingData;
+    private static Logger log = LogManager.getRootLogger();
+    
+    private boolean showStreaming;
     private BufferedWriter writer;
 
-    public TwitterStatusStreams(String keywordsArray[], boolean storeStreamData, BufferedWriter writer) {
-        this.setStoreStreamingData(storeStreamData);
+    public TwitterStatusStreams(String keywordsArray[], boolean showStreaming, BufferedWriter writer) {
+        this.showStreaming(showStreaming);
         this.writer = writer;
     }
 
@@ -46,18 +49,19 @@ public class TwitterStatusStreams implements StatusListener {
 
     @Override
     public void onStatus(Status status) {
+        if(!status.getLang().equals("en")){
+            return;
+        }
         try {
-            if (storeStreamingData) {
-                String jsonTend = new Gson().toJson(status);
-                writer.write(jsonTend);
-                writer.newLine();
-                writer.flush();
-                System.out.println("Writble@" + status.getUser().getScreenName() + " - " + status.getText());
-            } else {
-                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+            String jsonTrend = new Gson().toJson(status);
+            if (showStreaming) {
+                log.info("Writble@{} - {}", status.getUser().getScreenName(), status.getText());
             }
+            writer.write(jsonTrend);
+            writer.newLine();
+            writer.flush();
         } catch (IOException ioex) {
-            Log.error("Cannot write streaming statuses: {}", ioex.getMessage());
+            log.error("Cannot write streaming statuses: {}", ioex.getMessage());
         }
     }
 
@@ -65,11 +69,11 @@ public class TwitterStatusStreams implements StatusListener {
     public void onTrackLimitationNotice(int arg0) {
     }
 
-    public boolean isStore_streaming_data() {
-        return storeStreamingData;
+    public boolean showStreaming() {
+        return showStreaming;
     }
 
-    public void setStoreStreamingData(boolean storeStreamingData) {
-        this.storeStreamingData = storeStreamingData;
+    public void showStreaming(boolean showStreaming) {
+        this.showStreaming = showStreaming;
     }
 }

@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.projectspinoza.twitterswissarmyknife.command.BaseCommand;
 import org.projectspinoza.twitterswissarmyknife.command.CommandStreamStatuses;
 import org.projectspinoza.twitterswissarmyknife.command.TsakCommand;
-import org.projectspinoza.twitterswissarmyknife.streaming.TwitterStreamingExcecutor;
 import org.projectspinoza.twitterswissarmyknife.util.TsakResponse;
 import org.reflections.Reflections;
 
@@ -147,15 +146,6 @@ public class TwitterSwissArmyKnife {
     }
 
     /**
-     * executes twitter streaming command.
-     * 
-     * @throws IOException
-     */
-    public void executeStreamingCommand(CommandStreamStatuses baseCommand) throws IOException {
-        (new TwitterStreamingExcecutor()).execute(configurationBuilder, baseCommand);
-    }
-
-    /**
      * executes dump command.
      * 
      * @throws IOException
@@ -168,7 +158,9 @@ public class TwitterSwissArmyKnife {
         if (isAuthorized()) {
             tsakResponse = baseCommand.execute(getTwitterInstance());
             if (tsakResponse != null) {
-                showRateLimitStatus(tsakResponse.getRemApiLimits());
+                if(!(baseCommand instanceof CommandStreamStatuses)){
+                    showRateLimitStatus(tsakResponse.getRemApiLimits());
+                }
             }
         } else {
             log.error("User not authorized!");
@@ -206,11 +198,7 @@ public class TwitterSwissArmyKnife {
         if (!isAuthorized()) {
             setConfigurationBuilder(rootCommander);
         }
-        if (parsedCommand.equals("streamStatuses")) {
-            executeStreamingCommand( (CommandStreamStatuses) baseCommand);
-        } else {
-            executeDumpCommand(baseCommand);
-        }
+        executeDumpCommand(baseCommand);
         return tsakInstance;
     }
 
