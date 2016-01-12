@@ -35,7 +35,7 @@ use option `--help` with tsak command to display command options e.g.<br>
 * You need to have twitter's access key, token key to run TSAK, for details refer to [tsak setup](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites) page<br>
 * For API Documentation refer to [doc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
 
-####Available Tsak Commands
+####Available Tsak Commands [detail usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)
 
 `tsak dumpAccountSettings -o accountSettings.txt`<br>
 `tsak dumpFollowerIDs -uname ScreenName -limit 1 -o followerIDs.txt`<br>
