@@ -1,19 +1,20 @@
 # Twitter Swiss Army Knife
-twitter-swiss-army-knife <code>v1.0.0</code> is ready for release!!!
+twitter-swiss-army-knife `v1.0.0` is ready for release!!!
 
-<h2>How to build and Run</h2>
-<h4>Build</h4>
-<b>Build with maven</b>
-<ul><li>run the following command in project's root directory:<br>
-<code>mvn clean package</code></li></ul>
+##How to build and Run
+####Build
+**Build with maven**<br>
+* run the following command in project's root directory:<br>
+`mvn clean package`
 
-#### Setup
+####Setup
+
 * create twitter app [prerequisites](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites)<br>
 * tsak.properties file and enter your keys <br>
-<code>accessToken=[enter your access token here]</code><br>
-<code>consumerSecret=[enter your consumer secret key here]</code><br>
-<code>consumerKey=[enter your consumer key here]</code><br>
-<code>accessSecret=[enter your accessSecret key here]</code><br>
+`accessToken=[enter your access token here]`<br>
+`consumerSecret=[enter your consumer secret key here]`<br>
+`consumerKey=[enter your consumer key here]`<br>
+`accessSecret=[enter your accessSecret key here]`<br>
 * create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file</li>
 
 #### Run
