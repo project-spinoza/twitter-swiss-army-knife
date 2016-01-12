@@ -10,11 +10,11 @@ twitter-swiss-army-knife `v1.0.0` is ready for release!!!
 ####Setup
 
 * create twitter app [prerequisites](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites)<br>
-* edit `tsak.properties` file and enter your keys e.g. <br>
+* edit `tsak.properties` file and enter your keys e.g. <br><br>
 `accessToken=[enter your access token here]`<br>
 `consumerSecret=[enter your consumer secret key here]`<br>
 `consumerKey=[enter your consumer key here]`<br>
-`accessSecret=[enter your accessSecret key here]`<br>
+`accessSecret=[enter your accessSecret key here]`<br><br>
 * create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file</li>
 
 ####Run
