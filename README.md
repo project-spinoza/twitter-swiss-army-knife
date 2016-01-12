@@ -40,10 +40,9 @@ use option <code>--help</code> with tsak command to display command options e.g.
 </ul>
 
 
-> #### API Documentation
-[JavaDoc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
-
-### Commands
+#### API Documentation [doc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
+#### Command line usage [usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)
+#### Available Commands
 
 <code> tsak dumpAccountSettings -o accountSettings.txt </code><br>
 <code> tsak dumpFollowerIDs -uname ScreenName -limit 1 -o followerIDs.txt</code><br>
