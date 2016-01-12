@@ -39,6 +39,14 @@ use option <code>--help</code> with tsak command to display command options e.g.
 <li>You need to have twitter's access key, token key to run TSAK, for details refer to  <a href="https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites">Setup</a> page</li>
 </ul>
 
+ #### Note
+* For detailed setup visit: http://openspinoza.org/tsak/setup</code><br>
+* For detail description on available commands refer to: [command line usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)<br>
+* You need to have twitter's access key, token key to run TSAK, for details refer to [tsak setup](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites) page<br>
+* For API Documentation refer to: [doc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
+
+
+
 
 #### API Documentation [doc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
 #### Command line usage [usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)
