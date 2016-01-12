@@ -4,7 +4,7 @@ twitter-swiss-army-knife `v1.0.0` is ready for release!!!
 ##How to build and Run
 ####Build
 **Build with maven**<br>
-* run the following command in project's root directory:<br>
+* run the following command from project's root directory:<br>
 `mvn clean package`
 
 ####Setup
@@ -29,13 +29,13 @@ Run either of the available TSAK commands</b>
 use option `--help` with tsak command to display command options e.g.<br>
 `tsak dumpFollowerIDs --help`
 
-#### Note
+####Note
 * For detailed setup visit http://openspinoza.org/tsak/setup</code><br>
 * For detail description on available commands refer to [command line usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)<br>
 * You need to have twitter's access key, token key to run TSAK, for details refer to [tsak setup](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites) page<br>
 * For API Documentation refer to [doc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
 
-#### Available Commands
+####Available Tsak Commands
 
 <code> tsak dumpAccountSettings -o accountSettings.txt </code><br>
 <code> tsak dumpFollowerIDs -uname ScreenName -limit 1 -o followerIDs.txt</code><br>
