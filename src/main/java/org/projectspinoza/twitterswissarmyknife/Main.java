@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jline.console.ConsoleReader;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import twitter4j.TwitterException;
-
 import com.beust.jcommander.ParameterException;
+
+import jline.console.ConsoleReader;
+import twitter4j.TwitterException;
 
 /**
  * Main is the Driver class for the TwitterSwissArmyKnife utility, and contains
@@ -28,7 +27,7 @@ public class Main {
     private static ConsoleReader consoleReader;
 
     /**
-     * contains the logic for executing commands.
+     * provides TSAK usage
      * 
      * @param args
      * @throws IOException
@@ -36,24 +35,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         log.info("Initializing TSAK");
 
-        /**
-         * TSAK USAGE
-         * 
-         * 1. USAGE (NORMAL|SIMPLE) 
-         * =======================================
-         * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
-         * tsak.executeCommand(args).write();
-         */
-
-        /**
-         * TSAK USAGE
-         * 
-         * 2. Using TSAK as a shell
-         * ===================================
-         * 
-         */
         consoleReader = new ConsoleReader();
-        TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
+        TwitterSwissArmyKnife tsak = new TwitterSwissArmyKnife();
+        
         while (true) {
             try {
                 tsak.executeCommand(getCommandLineArguments()).write();
@@ -69,60 +53,12 @@ public class Main {
                 consoleReader.flush();
             }
         }
-
-        /**
-         * 3: USAGE
-         * 
-         * (Don't want to provide credentials for each command OR want to run
-         * multiple commands in a loop?)
-         * ===================================================================
-         * 
-         * String[] followersCommand = {"tsak","dumpFollowerIDs","-uname", "dmkavanagh", "-o", "followersIds.txt"}; 
-         * String[] userListsCommand = {"tsak", "dumpUserLists", "-uname", "dmkavanagh", "-o", "userLists.txt"}; 
-         * String[] userSuggestionsCommand = {"tsak", "dumpUserSuggestions", "-slug", "Sports", "-o", "userSuggestions.txt"};
-         * 
-         * List<String[]> commands = new ArrayList<String[]>();
-         * 
-         * commands.add(followersCommand); 
-         * commands.add(userListsCommand);
-         * commands.add(userSuggestionsCommand);
-         * 
-         * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
-         * for(String[] command : commands){
-         * tsak.executeCommand(command).write(); }
-         * 
-         */
-
-        /**
-         * 4: USAGE (Do you want to get/analyze the original response from twitter API ?)
-         * ==============================================================================
-         * 
-         * TwitterSwissArmyKnife tsak = TwitterSwissArmyKnife.getInstance();
-         * 
-         * i. get the result only 
-         * -------------------------------- 
-         * TsakResponse result = tsak.executeCommand(args).getResult();
-         * 
-         * ii. write and then get the result
-         * --------------------------------
-         * TsakResponse result = tsak.executeCommand(args).write().getResult();
-         * 
-         */
-
-        /**
-         * 5: USAGE (much more) 
-         * ====================
-         * 
-         * for more detailed usage study the API. (TwitterSwissArmyKnife)
-         * 
-         */
     }
 
     /**
      * reads command from the console, and returns it after parsing.
      * 
      * @return String[] parsed command
-     * 
      * @throws IOException
      */
     public static String[] getCommandLineArguments() throws IOException {

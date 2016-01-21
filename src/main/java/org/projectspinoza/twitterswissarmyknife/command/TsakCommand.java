@@ -46,4 +46,10 @@ public class TsakCommand {
     public void setAccessSecret(String key) {
         accessSecret = key;
     }
+
+    @Override
+    public String toString() {
+        return "TsakCommand [consumerKey=" + consumerKey + ", consumerSecret=" + consumerSecret + ", accessToken="
+                + accessToken + ", accessSecret=" + accessSecret + "]";
+    }
 }
