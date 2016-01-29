@@ -17,9 +17,12 @@ twitter-swiss-army-knife `v1.0.0` is ready for release!!!
 `consumerSecret=[enter your consumer secret key here]`<br>
 `consumerKey=[enter your consumer key here]`<br>
 `accessSecret=[enter your accessSecret key here]`<br><br>
-* create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file</li>
 
-####Run
+####Run in GUI mode
+* Inside project root directory, run `bash startup_gui.sh` 
+
+####Run in commandline mode
+* create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file<br>
 * Inside project root directory, run one of the following startup file depending on the type of plateform:<br> 
 `bash startup.sh` **Linux**<br>
 `startup.bat` **Windows**
