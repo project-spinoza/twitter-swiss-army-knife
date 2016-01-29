@@ -16,6 +16,15 @@
 	</properties>
 
 	<dependencies>
+		<!-- javafx dependency -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx</artifactId>
+            <version>2.2.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+        </dependency>
+
 		<!-- Mockito + Power Mock -->
 		<dependency>
 			<groupId>org.powermock</groupId>

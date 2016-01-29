@@ -88,7 +88,6 @@ public class TwitterSwissArmyKnife{
     private void init(JCommander rootCommander, Twitter twitter) throws TwitterException{
         if(rootCommander == null){
             rootCommander = new JCommander();
-            rootCommander.addCommand("tsak", new TsakCommand());
         }
         this.rootCommander = rootCommander;
         registerCommands(TSAK_CORE_COMMANDS_PACKAGE);
@@ -248,6 +247,7 @@ public class TwitterSwissArmyKnife{
             log.info("Need help?? run > tsak <commandName> --help");
             return this;
         }
+        rootCommander.addCommand("tsak", new TsakCommand());
         activateCommands();
         rootCommander.parse(args);
         BaseCommand baseCommand = getActiveCommand();    
@@ -259,6 +259,7 @@ public class TwitterSwissArmyKnife{
         if (!isAuthorized()) {
             authorizeUser();
         }
+        log.info("tsak:{}", rootCommander.getCommands().get("tsak").getObjects().get(0));
         tsakResponse = baseCommand.execute(getTwitterInstance());
         
         if(!(tsakResponse == null || baseCommand instanceof CommandStreamStatuses)){
@@ -313,6 +314,7 @@ public class TwitterSwissArmyKnife{
         }
         TsakCommand commandTsak = getTsakCommand();
         if (getTsakCommand().getConsumerKey() == null || commandTsak.getConsumerSecret() == null || commandTsak.getAccessToken() == null || commandTsak.getAccessSecret() == null) {
+            log.info("taking value from property file");
             String env = System.getenv("TSAK_CONF");
             if (env == null || env.isEmpty()) {
                 log.error("Environment variable not set. TSAK_CONF {}", env);
