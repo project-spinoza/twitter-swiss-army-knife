@@ -1,7 +1,7 @@
 # Twitter Swiss Army Knife
 twitter-swiss-army-knife `v1.0.0` is ready for release!!!
 <br><br>
-![GUI](images/tsak-gui.png)
+![GUI](images/gui.png)
 <br></br>
 ##How to build and Run
 ####Build
