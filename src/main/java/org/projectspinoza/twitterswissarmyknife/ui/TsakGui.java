@@ -59,7 +59,8 @@ public class TsakGui extends Application {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Scene scene = new Scene(grid, PREFERED_WINDOW_WIDTH, PREFERED_WINDOW_HEIGHT);
+		Scene scene = new Scene(grid, PREFERED_WINDOW_WIDTH,
+				PREFERED_WINDOW_HEIGHT);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("TwitterSwissArmyKnife -v1.0");
 
@@ -73,32 +74,31 @@ public class TsakGui extends Application {
 		grid.add(commandsLabel, 0, 1);
 
 		ObservableList<String> options = FXCollections.observableArrayList(
-				"dumpAccountSettings", "dumpAvailableTrends", "dumpBlockList",
-				"dumpClosestTrends", "dumpFavourites", "dumpFollowerIDs",
-				"dumpFollowersList", "dumpFriendIDs", "dumpFriendsList",
-				"dumpGeoDetails", "dumpHomeTimeLine",
-				"dumpIncomingFriendships", "dumpListStatuses",
-				"dumpMemberSuggestions", "dumpMentionsTimeLine",
-				"dumpMutesIDs", "dumpMutesList", "dumpOutgoingFriendships",
-				"dumpOwnRetweets", "dumpPlaceTrends", "dumpRetweeters",
-				"dumpSavedSearches", "dumpSimilarPlaces", "dumpStatus",
-				"dumpSugeestedUserCats", "dumpTweets", "dumpUserListMembers",
-				"dumpUserListMemberships", "dumpUserLists",
-				"dumpUserListSubscribers", "dumpUserListSubscriptions",
-				"dumpUserSuggestions", "dumpUserTimeLine", "searchPlace",
-				"searchUsers", "showFriendShip");
+			"dumpAccountSettings", "dumpAvailableTrends", "dumpBlockList",
+			"dumpClosestTrends", "dumpFavourites", "dumpFollowerIDs",
+			"dumpFollowersList", "dumpFriendIDs", "dumpFriendsList",
+			"dumpGeoDetails", "dumpHomeTimeLine",
+			"dumpIncomingFriendships", "dumpListStatuses",
+			"dumpMemberSuggestions", "dumpMentionsTimeLine",
+			"dumpMutesIDs", "dumpMutesList", "dumpOutgoingFriendships",
+			"dumpOwnRetweets", "dumpPlaceTrends", "dumpRetweeters",
+			"dumpSavedSearches", "dumpSimilarPlaces", "dumpStatus",
+			"dumpSugeestedUserCats", "dumpTweets", "dumpUserListMembers",
+			"dumpUserListMemberships", "dumpUserLists",
+			"dumpUserListSubscribers", "dumpUserListSubscriptions",
+			"dumpUserSuggestions", "dumpUserTimeLine", "searchPlace",
+			"searchUsers", "showFriendShip");
 		final ComboBox commandBox = new ComboBox(options);
 		commandBox.setPrefWidth(PREFERED_INPUT_WIDTH);
 		commandBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
-			public void changed(ObservableValue ov, String previousV,
-					String currentV) {
+			public void changed(ObservableValue ov, String previousV, String currentV) {
 				try {
 					for (int j = 0; j < 8; j++) {
 						grid.getChildren().remove(5);
 					}
 				} catch (Exception ex) {
-					//. TODO
+					// . TODO
 				}
 				List<String> options = commandsMap.get(currentV);
 				int r = 3;
@@ -138,14 +138,15 @@ public class TsakGui extends Application {
 						Label l = (Label) grid.getChildren().get(ic - 1);
 						if (l.getText().isEmpty() || f.getText().isEmpty()) {
 							actiontarget.setFill(Color.FIREBRICK);
-							actiontarget.setText("Some required fields are missing!");
+							actiontarget
+									.setText("Some required fields are missing!");
 							fieldMissing = true;
 						}
 						commandOptions += l.getText() + " " + f.getText() + " ";
 						ic += 2;
 					}
 				} catch (Exception ex) {
-					//. TODO
+					// . TODO
 				} finally {
 					if (!fieldMissing && !commandOptions.isEmpty()) {
 						actiontarget.setText("");
@@ -340,7 +341,7 @@ public class TsakGui extends Application {
 					+ "-accessSecret=" + accessSecret + " ";
 
 		} catch (Exception ex) {
-			//. TODO
+			// . TODO
 		}
 	}
 
