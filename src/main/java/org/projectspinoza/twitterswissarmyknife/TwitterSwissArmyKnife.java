@@ -314,7 +314,6 @@ public class TwitterSwissArmyKnife{
         }
         TsakCommand commandTsak = getTsakCommand();
         if (getTsakCommand().getConsumerKey() == null || commandTsak.getConsumerSecret() == null || commandTsak.getAccessToken() == null || commandTsak.getAccessSecret() == null) {
-            log.info("taking value from property file");
             String env = System.getenv("TSAK_CONF");
             if (env == null || env.isEmpty()) {
                 log.error("Environment variable not set. TSAK_CONF {}", env);
