@@ -4,6 +4,11 @@ twitter-swiss-army-knife `v1.0.0` is ready for release!!!
 ![GUI](images/gui.png)
 <br></br>
 ##How to build and Run
+#### Download
+`git clone https://github.com/project-spinoza/twitter-swiss-army-knife.git`
+<br>OR<br>
+Download zip file - [download](https://github.com/project-spinoza/twitter-swiss-army-knife/archive/master.zip)
+<br>
 ####Build
 **Build with maven**<br>
 * run the following command from project's root directory:<br>
