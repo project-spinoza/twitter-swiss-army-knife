@@ -35,8 +35,7 @@ Download zip file - [download](https://github.com/project-spinoza/twitter-swiss-
 * Inside project root directory, run one of the following startup file depending on the type of platform:<br> 
 `bash startup.sh` **Linux**<br>
 `startup.bat` **Windows**
-<br><br>
-
+<br>
 Run either of the available TSAK commands</b>
 
 ####Help
