@@ -96,7 +96,8 @@ use option `--help` with tsak command to display command options e.g.<br>
 
 
 ## License
-The code is licensed under the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)<br>
+The code is licensed under the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+<br>
 ## Questions or Suggestions
 **Email** `project.spinoza@gmail.com`<br>
 **Issues** https://github.com/project-spinoza/twitter-swiss-army-knife/issues
