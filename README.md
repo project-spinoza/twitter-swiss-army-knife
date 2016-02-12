@@ -24,7 +24,8 @@ Download zip file - [download](https://github.com/project-spinoza/twitter-swiss-
 `accessSecret=[enter your accessSecret key here]`<br><br>
 
 ####Run in GUI mode
-* Inside project root directory, run `bash startup_gui.sh` 
+* Inside project root directory, run `bash startup_gui.sh`<br>
+* **Note**: GUI mode may not support full options
 
 ####Run in command line mode
 * create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file<br>
