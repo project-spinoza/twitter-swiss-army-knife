@@ -259,7 +259,6 @@ public class TwitterSwissArmyKnife{
         if (!isAuthorized()) {
             authorizeUser();
         }
-        log.info("tsak:{}", rootCommander.getCommands().get("tsak").getObjects().get(0));
         tsakResponse = baseCommand.execute(getTwitterInstance());
         
         if(!(tsakResponse == null || baseCommand instanceof CommandStreamStatuses)){
