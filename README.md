@@ -1,9 +1,9 @@
 # Twitter Swiss Army Knife
 twitter-swiss-army-knife `v1.0.0` is ready for release!!!
-##TSAK GUI
+####TSAK GUI
 ![GUI](https://github.com/project-spinoza/twitter-swiss-army-knife/blob/gh-pages/images/gui.png)
 
-##TSAK CMD
+####TSAK CMD
 ![CMD](https://github.com/project-spinoza/twitter-swiss-army-knife/blob/gh-pages/images/tsak_crop.jpg)
 
 ##How to build and Run
