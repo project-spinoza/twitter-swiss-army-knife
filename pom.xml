@@ -17,13 +17,13 @@
 
 	<dependencies>
 		<!-- javafx dependency -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>javafx</artifactId>
-            <version>2.2.3</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
-        </dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>javafx</artifactId>
+			<version>2.2.3</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+		</dependency>
 
 		<!-- Mockito + Power Mock -->
 		<dependency>
@@ -49,7 +49,12 @@
 			<artifactId>jcommander</artifactId>
 			<version>1.48</version>
 		</dependency>
-
+		<!-- Language detector dependency -->
+		<dependency>
+			<groupId>com.detectlanguage</groupId>
+			<artifactId>detectlanguage</artifactId>
+			<version>1.0.5</version>
+		</dependency>
 		<!-- twitter4j v4.0.2 -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>
@@ -116,6 +121,23 @@
 			<version>0.9.9-RC1</version>
 		</dependency>
 
+		<!-- SentimentAnalysis Dependency -->
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.5.2</version>
+			<classifier>models</classifier>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-parser</artifactId>
+			<version>3.5.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
