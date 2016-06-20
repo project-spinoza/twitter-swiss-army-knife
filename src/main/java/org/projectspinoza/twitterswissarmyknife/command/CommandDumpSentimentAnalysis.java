@@ -93,7 +93,7 @@ public class CommandDumpSentimentAnalysis extends BaseCommand {
 
     public List<Status> getSentimentTweets(String sentiment, QueryResult queryResult, SentimentTagger tagger) {
         List<Status> tweets = new ArrayList<Status>();
-        JsonParser parser = new JsonParser();
+       /* JsonParser parser = new JsonParser();
         SentimentTag inputTag = SentimentTag.getTag(sentiment);
         if (inputTag == null) {
             Log.error("Invalid SentimentTag: {,  ", sentiment, "  } ", "expected {", " positive, negative or neutral","}");
@@ -113,7 +113,7 @@ public class CommandDumpSentimentAnalysis extends BaseCommand {
             }
 
         }
-        return tweets;
+*/        return tweets;
     }
 
     public String gettweetfromJsonObject(Status status, JsonParser parser) {

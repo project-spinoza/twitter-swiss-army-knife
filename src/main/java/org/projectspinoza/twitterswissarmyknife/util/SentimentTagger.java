@@ -3,15 +3,9 @@ package org.projectspinoza.twitterswissarmyknife.util;
 import java.util.List;
 import java.util.Properties;
 
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
-import edu.stanford.nlp.util.CoreMap;
-
 public class SentimentTagger {
 
-    private StanfordCoreNLP pipeline;
+   /* private StanfordCoreNLP pipeline;
 
     public SentimentTagger() {
         this(null);
@@ -90,5 +84,5 @@ public class SentimentTagger {
         }
 
         return tag;
-    }
+    }*/
 }
