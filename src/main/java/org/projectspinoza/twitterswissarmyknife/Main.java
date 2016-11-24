@@ -1,6 +1,6 @@
 package org.projectspinoza.twitterswissarmyknife;
 
-import io.vertx.core.Vertx;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,9 +34,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         log.info("Initializing TSAK");
-        Vertx vertx = Vertx.vertx();
-        vertx.deployVerticle(new DeployServer());
-
+		
         if(args.length == 1 && args[0].equals("gui")){
             launchGui(args);
         }else{
