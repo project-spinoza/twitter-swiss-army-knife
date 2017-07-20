@@ -1,23 +1,23 @@
 # Twitter Swiss Army Knife
 twitter-swiss-army-knife `v1.0.0` is ready for release!!!
-####TSAK GUI
+#### TSAK GUI
 ![GUI](https://github.com/project-spinoza/twitter-swiss-army-knife/blob/gh-pages/images/gui.png)
 
-####TSAK CMD
+#### TSAK CMD
 ![CMD](https://github.com/project-spinoza/twitter-swiss-army-knife/blob/gh-pages/images/tsak_crop.jpg)
 
-##How to build and Run
+## How to build and Run
 #### Download
 `git clone https://github.com/project-spinoza/twitter-swiss-army-knife.git`
 <br>OR<br>
 Download zip file - [download](https://github.com/project-spinoza/twitter-swiss-army-knife/archive/master.zip)
 <br>
-####Build
+#### Build
 **Build with maven**<br>
 * run the following command from project's root directory:<br>
 `mvn clean package`
 
-####Setup
+#### Setup
 
 * create twitter app [prerequisites](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites)<br>
 * edit `tsak.properties` file and enter your keys e.g. <br><br>
@@ -26,11 +26,11 @@ Download zip file - [download](https://github.com/project-spinoza/twitter-swiss-
 `consumerKey=[enter your consumer key here]`<br>
 `accessSecret=[enter your accessSecret key here]`<br><br>
 
-####Run in GUI mode
+#### Run in GUI mode
 * Inside project root directory, run `bash startup_gui.sh`<br>
 * **Note**: GUI mode may not support full options
 
-####Run in command line mode
+#### Run in command line mode
 * create <code>TSAK_CONF</code> environment variable and point it to the directory containing tsak.properties file<br>
 * Inside project root directory, run one of the following startup file depending on the type of platform:<br> 
 `bash startup.sh` **Linux**<br>
@@ -38,17 +38,17 @@ Download zip file - [download](https://github.com/project-spinoza/twitter-swiss-
 <br>
 Run either of the available TSAK commands</b>
 
-####Help
+#### Help
 use option `--help` with tsak command to display command options e.g.<br>
 `tsak dumpFollowerIDs --help`
 
-####Note
+#### Note
 * For detailed setup visit [setup](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites)<br>
 * For detail description on available commands refer to [command line usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)<br>
 * You need to have twitter's access key, token key to run TSAK, for details refer to [tsak setup](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Prerequisites) page<br>
 * For API Documentation refer to [doc](http://project-spinoza.github.io/twitter-swiss-army-knife/doc/)
 
-####Available Tsak Commands [detail usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)
+#### Available Tsak Commands [detail usage](https://github.com/project-spinoza/twitter-swiss-army-knife/wiki/Command-Line-Usage)
 
 `tsak dumpAccountSettings -o accountSettings.txt`<br>
 `tsak dumpFollowerIDs -uname ScreenName -limit 1 -o followerIDs.txt`<br>
